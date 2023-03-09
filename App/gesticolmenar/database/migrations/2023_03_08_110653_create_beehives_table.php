@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('beehives', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('apiary_id');
             $table->unsignedBigInteger('queen_id');
             $table->string('type');
             $table->integer('honey_frames');
             $table->integer('pollen_frames');
             $table->integer('brood_frames');
-            $table->integer('total_frames');
+            //$table->integer('total_frames');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('apiary_id')->references('id')->on('apiaries');
             $table->foreign('queen_id')->references('id')->on('queens');
             $table->timestamps();

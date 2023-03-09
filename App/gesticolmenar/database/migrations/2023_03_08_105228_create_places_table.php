@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('catastral_code')->unique();
             $table->string('poligon');
             $table->string('parcel');
             $table->string('postal_code');
             $table->boolean('has_water');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

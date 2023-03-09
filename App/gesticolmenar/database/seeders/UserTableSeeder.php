@@ -27,7 +27,7 @@ class UserTableSeeder extends Seeder
         $user->explotation_code = 'ES09042010';
         $user->name = 'Noble';
         $user->surname = 'Falcó';
-        $user->dni = '33563120W';
+        $user->dni = '44674231Y';
         $user->birth_date = '2010-04-09';
         $user->email = 'noble@gmail.com';
         $user->password = bcrypt('12345678');

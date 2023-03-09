@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('type');
             $table->float('grams');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

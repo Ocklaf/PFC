@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('apiaries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('place_id');
+            $table->unsignedBigInteger('place_id')->unique();
             $table->integer('beehives_quantity');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('place_id')->references('id')->on('places');
