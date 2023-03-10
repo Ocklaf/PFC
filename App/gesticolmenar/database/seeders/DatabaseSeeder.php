@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             ApiaryTableSeeder::class,
             QueenTableSeeder::class,
             BeehiveTableSeeder::class,
+            ProductTableSeeder::class,
+           // BeehiveProductTableSeeder::class,
         ]);
     }
 }

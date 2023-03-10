@@ -9,8 +9,13 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function beehives()
+    public function beehive()
     {
-        return $this->belongsToMany(Beehive::class);
+        return $this->belongsTo(Beehive::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

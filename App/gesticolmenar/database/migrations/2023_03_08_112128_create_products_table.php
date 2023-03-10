@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('beehive_id');
             $table->string('type');
-            $table->float('grams');
+            $table->integer('grams');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('beehive_id')->references('id')->on('beehives');
             $table->timestamps();
         });
     }

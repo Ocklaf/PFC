@@ -21,11 +21,16 @@ class Beehive extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Product::class);
     }
 
     public function diseases()
     {
-        return $this->belongsToMany(Disease::class);
+        return $this->hasMany(Disease::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

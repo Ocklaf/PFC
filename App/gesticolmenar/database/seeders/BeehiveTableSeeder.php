@@ -7,53 +7,62 @@ use Illuminate\Database\Seeder;
 use App\Models\Beehive;
 use Faker\Factory as Faker;
 
-class BeehiveTableSeeder extends Seeder
-{
+class BeehiveTableSeeder extends Seeder {
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
-        $faker = Faker::create();
+    public function run(): void {
+        $totalOfBeehives = 600;
+        $beehivesApiaryOne = 180;
+        $beehivesApiaryTwo = 120;
 
-        for ($i = 1; $i <= 600; $i++) {
-            $honey = rand(1,10);
+        function frames($beehive) {
+            $totalFrames = 10;
 
-            if ($i <= 180) {
+            $beehive->honey_frames = rand(3, 6);
+            $totalFrames = $totalFrames - $beehive->honey_frames;
+
+            if ($totalFrames % 2 !== 0) {
+                $beehive->pollen_frames = $totalFrames / 2 - 1;
+                $beehive->brood_frames = $totalFrames / 2;
+                return;
+            }
+
+            $beehive->pollen_frames = $totalFrames / 2;
+            $beehive->brood_frames = $totalFrames / 2;
+        }
+
+        for ($i = 1; $i <= $totalOfBeehives; $i++) {
+
+            if ($i <= $beehivesApiaryOne) {
                 $beehive = new Beehive();
                 $beehive->user_id = 1;
                 $beehive->apiary_id = 1;
                 $beehive->queen_id = $i;
-                $beehive->type = $faker->randomElement(['Langstroth', 'Dadant', 'Layens']);
-                $beehive->honey_frames = 6;
-                $beehive->pollen_frames = 2;
-                $beehive->brood_frames = 2;
+                $beehive->type = 'Langstroth';
+                frames($beehive);
                 $beehive->save();
                 continue;
             }
 
-            if($i >180 && $i <= 300) {
+            if ($i > $beehivesApiaryOne && $i <= $beehivesApiaryOne + $beehivesApiaryTwo) {
                 $beehive = new Beehive();
                 $beehive->user_id = 1;
                 $beehive->apiary_id = 2;
                 $beehive->queen_id = $i;
-                $beehive->type = $faker->randomElement(['Langstroth', 'Dadant', 'Layens']);
-                $beehive->honey_frames = 5;
-                $beehive->pollen_frames = 4;
-                $beehive->brood_frames = 1;
+                $beehive->type =  'Dadant';
+                frames($beehive);
                 $beehive->save();
                 continue;
             }
+
             $beehive = new Beehive();
             $beehive->user_id = 2;
             $beehive->apiary_id = 3;
             $beehive->queen_id = $i;
-            $beehive->type = $faker->randomElement(['Langstroth', 'Dadant', 'Layens']);
-            $beehive->honey_frames = 5;
-            $beehive->pollen_frames = 4;
-            $beehive->brood_frames = 1;
+            $beehive->type = 'Layens';
+            frames($beehive);
             $beehive->save();
-
         }
     }
 }

@@ -9,6 +9,11 @@ class Queen extends Model
 {
     use HasFactory;
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function beehive()
     {
         return $this->belongsTo(Beehive::class);

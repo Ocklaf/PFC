@@ -13,4 +13,9 @@ class Place extends Model
     {
         return $this->hasOne(Apiary::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

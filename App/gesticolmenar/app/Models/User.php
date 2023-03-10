@@ -48,4 +48,29 @@ class User extends Authenticatable
         return $this->hasMany(Apiary::class);
     }
 
+    public function beehives()
+    {
+        return $this->hasMany(Beehive::class);
+    }
+
+    public function queens()
+    {
+        return $this->hasMany(Queen::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function places()
+    {
+        return $this->hasMany(Place::class);
+    }
+
+    public function diseases()
+    {
+        return $this->hasMany(Disease::class);
+    }
+
 }
