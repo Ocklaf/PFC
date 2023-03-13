@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ApiaryController;
+use App\Http\Controllers\BeehiveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +20,19 @@ use App\Http\Controllers\AuthController;
 //     return view('login');
 // });
 
-Route::view('/', 'login')->name('home');
+Route::view('/', 'login');
 Route::view('/register', 'register');
 Route::view('/welcome', 'welcome')->name('welcome');
 
 Route::post('/', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    
+    Route::get('beehives/beehivesApiary/{apiary}', [BeehiveController::class, 'beehivesApiary'])->name('beehives.beehivesApiary');
+
+
+    Route::resource('apiaries', ApiaryController::class);
+    Route::resource('beehives', BeehiveController::class);
+});

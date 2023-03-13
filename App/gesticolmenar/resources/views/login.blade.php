@@ -3,6 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
+
     <section class="vh-100 gradient-form" style="background-color: #eee;">
         <div class="container py-5 vh-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -11,6 +12,12 @@
                         <div class="row g-0">
                             <div class="col-lg-6">
                                 <div class="card-body p-md-5 mx-md-4">
+
+                                    @if (session('success'))
+                                        <div class="alert alert-success text-center">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
 
                                     <div class="text-center">
                                         <img src="{{ asset('img/logo.png') }}" style="width: 185px;" alt="logo">
