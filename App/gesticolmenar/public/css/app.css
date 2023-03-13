@@ -5,3 +5,7 @@
 .copyright, .icons-copyright {
   background-color: #B1DFEA;
 }
+
+.user-card {
+  background-color: rgba(193, 148 , 0, .3);
+}

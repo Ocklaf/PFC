@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-bottom: 110px">
         <div class="row">
             <div class="col-12">
                 <h1 class="mt-4 text-center">Colmenas</h1>
@@ -14,14 +14,14 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <table class="table text-center">
+                <table class="table text-center" style="width: 100%; overflow: hidden">
                     <thead>
                         <tr>
                             <th>Tipo Colmena</th>
                             <th>Marcos de miel</th>
                             <th>Marcos de polen</th>
                             <th>Marcos de cría</th>
-                            <th>Acciones</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,13 +34,13 @@
                                 <td class="d-flex justify-content-evenly">
                                     <a href="{{ route('beehives.show', $beehive->id) }}" class="btn btn-primary"><i
                                             class="bi bi-eye"></i></a>
-                                    <a href="{{ route('beehives.edit', $beehive->id) }}" class="btn btn-primary"><i
+                                    {{-- <a href="{{ route('beehives.edit', $beehive->id) }}" class="btn btn-primary"><i
                                             class="bi bi-pencil"></i></a>
                                     <form action="{{ route('beehives.destroy', $beehive->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
                         @endforeach
