@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('type');
             $table->integer('grams');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('beehive_id')->references('id')->on('beehives');
+            $table->foreign('beehive_id')->references('id')->on('beehives')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

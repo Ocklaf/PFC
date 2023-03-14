@@ -42,5 +42,18 @@ class PlaceTableSeeder extends Seeder
         $place->postal_code = '46001';
         $place->has_water = false;
         $place->save();
+
+
+        //Lugares sin asignar un colmenar
+        $place = new Place();
+        $place->user_id = 1;
+        $place->name = 'La pinada';
+        $place->catastral_code = '123LGH0330ARZLR47581';
+        $place->poligon = '98';
+        $place->parcel = '765';
+        $place->postal_code = '46018';
+        $place->has_water = true;
+        $place->save();
+
     }
 }

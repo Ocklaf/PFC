@@ -25,7 +25,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link" aria-current="page" href="{{ route('apiaries.index') }}">Inicio</a>
+                    <a class="nav-link" aria-current="page" href="{{ route('apiaries.index') }}">Mis Colmenares</a>
                     {{-- <a class="nav-link" href="#">Features</a>
                     <a class="nav-link" href="#">Pricing</a> --}}
                     <a class="nav-link" href="{{ route('users.index')}}">Perfil <i class="bi bi-person-circle"></i></a>

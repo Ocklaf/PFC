@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApiaryController;
 use App\Http\Controllers\BeehiveController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +39,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('apiaries', ApiaryController::class);
     Route::resource('beehives', BeehiveController::class);
     Route::resource('users', UserController::class);
+    Route::resource('places', PlaceController::class);
 });

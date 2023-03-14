@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container-fluid" style="margin-bottom: 110px">
+        @if (session('success'))
+            <div class="row  d-flex justify-content-center mt-5">
+                <div class="alert alert-success text-center mb-3 col-6">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <h1 class="mt-4 text-center">Colmenas</h1>

@@ -25,7 +25,19 @@ class AuthRequest extends FormRequest
             'explotation_code' => 'required|regex:/^[A-Z0-9]*$/|string|min:10|max:10|unique:users',
             'name' => 'required|string|min:2|max:100',
             'surname' => 'required|string|min:2|max:100',
-            'dni' => 'required|regex:/^[0-9]{8,8}[A-Z]$/|string|min:9|max:9|unique:users',
+            'dni' => ['required','regex:/^[0-9]{8,8}[A-Z]$/','string','min:9','max:9','unique:users',
+            function ($attribute, $value, $fail)
+            {
+                $dni = $this->dni;
+                $letter = substr($dni, -1);
+                $numbers = substr($dni, 0, -1);
+                $isAValidDNI = substr("TRWAGMYFPDXBNJZSQVHLCKE", $numbers%23, 1) == $letter && strlen($letter) == 1 && strlen($numbers) == 8;
+                
+                if (!$isAValidDNI) {
+                    $fail('El DNI no es válido');
+                }
+            }],
+
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:6',
             'password_confirmation' => 'required|string|min:6|same:password',

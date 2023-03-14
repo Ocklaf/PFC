@@ -30,10 +30,11 @@ class BeehiveController extends Controller
     function addBeehiveToApiary($apiary) {
         $beehive = new Beehive();
         $path = 'beehives.store';
-        $user = auth()->user();
+        $user = auth()->user()->id;
+        //Reinas disponibles (no asignadas a ninguna colmena de un usuario concreto)
         $freeQueens = Queen::
-            where('user_id', $user->id)
-            ->whereIn('id', function ($query) {
+            where('user_id', $user)
+            ->whereNotIn('id', function ($query) {
                 $query->select('queen_id')->from('beehives');
             })->get();
 
@@ -60,7 +61,18 @@ class BeehiveController extends Controller
      */
     public function store(BeehiveRequest $request)
     {
-        dd('hola');
+        //dd('hola');
+        $beehive = new Beehive();
+        $beehive->type = $request->type;
+        $beehive->honey_frames = $request->honey_frames;
+        $beehive->pollen_frames = $request->pollen_frames;
+        $beehive->brood_frames = $request->brood_frames;
+        $beehive->user_id = auth()->user()->id;
+        $beehive->queen_id = $request->queen_id;
+        $beehive->apiary_id = $request->apiary_id;
+        $beehive->save();
+
+        return redirect()->route('beehives.beehivesApiary', $beehive->apiary_id)->withSuccess('Colmena creada correctamente');
     }
 
     /**

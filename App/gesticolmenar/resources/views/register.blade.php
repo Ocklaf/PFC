@@ -31,7 +31,7 @@
                                 </div>
 
                                 <div class="form-outline mb-1">
-                                    <label class="form-label" for="dni">DNI/NIE</label>
+                                    <label class="form-label" for="dni">DNI</label>
                                     <input type="text" id="dni" name="dni" class="form-control form-control-lg"
                                         value="{{ old('dni') }}" />
                                     @if ($errors->has('dni'))

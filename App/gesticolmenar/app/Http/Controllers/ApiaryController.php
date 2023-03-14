@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Apiary;
 use App\Models\Place;
+use App\Models\Beehive;
 
 class ApiaryController extends Controller
 {
@@ -19,7 +20,9 @@ class ApiaryController extends Controller
         $placesName = Place::where('user_id', $user)->pluck('name');
 
         foreach ($apiaries as $key => $apiary) {
-            $apiary['place_name'] = $placesName[$key];
+            $apiary->place_name = $placesName[$key];
+            $apiary->beehives_quantity = Beehive::where('apiary_id', $apiary->id)->count();
+            //$apiary->beehives->count();
             //dd($apiary->place_name, $key);
         }
         //dd($apiaries);
@@ -31,7 +34,18 @@ class ApiaryController extends Controller
      */
     public function create()
     {
-        //
+        $apiary = new Apiary();
+        $path = 'apiaries.store';
+        $user = auth()->user()->id;
+        //Lugares disponibles (no asignados a ningún colmenar de un usuario concreto)
+        $freePlaces = Place::where('user_id', $user)
+            ->whereNotIn('id', function ($query) {
+                $query->select('place_id')->from('apiaries');
+            })->get();
+
+            //dd($freePlaces);
+        
+        return view('apiaries.form', compact('apiary', 'path', 'freePlaces'));
     }
 
     /**
@@ -39,7 +53,14 @@ class ApiaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd('hola');
+        $apiary = new Apiary();
+        $apiary->user_id = auth()->user()->id;
+        $apiary->place_id = $request->place_id;
+        $apiary->beehives_quantity = 0;
+        $apiary->save();
+
+        return redirect()->route('apiaries.index')->withSuccess('Colmenar creado correctamente');
     }
 
     /**
@@ -71,6 +92,10 @@ class ApiaryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $apiary = Apiary::findOrFail($id);
+
+        $apiary->delete();
+
+        return redirect()->route('apiaries.index');
     }
 }

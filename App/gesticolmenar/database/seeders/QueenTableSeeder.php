@@ -67,5 +67,27 @@ class QueenTableSeeder extends Seeder
             $queen->save();
 
         }
+
+        //Dos reinas no asignadas
+        $queen = new Queen();
+        $queen->user_id = 1;
+        $queen->race = $faker->randomElement(['Italiana', 'Carnica', 'Africanizada']);
+        $queen->color = $faker->randomElement(['Azul', 'Blanco', 'Amarillo', 'Rojo', 'Verde']);
+        $queen->start_date = getYear($queen->color);
+        //dd($queen->start_date, $queen->color);
+        $queen->end_date = $queen->start_date + 4;
+        //dd($queen->end_date);
+        $queen->save();
+
+        $queen = new Queen();
+        $queen->user_id = 2;
+        $queen->race = $faker->randomElement(['Italiana', 'Carnica', 'Africanizada']);
+        $queen->color = $faker->randomElement(['Azul', 'Blanco', 'Amarillo', 'Rojo', 'Verde']);
+        $queen->start_date = getYear($queen->color);
+        //dd($queen->start_date, $queen->color);
+        $queen->end_date = $queen->start_date + 4;
+        //dd($queen->end_date);
+        $queen->save();
+
     }
 }
