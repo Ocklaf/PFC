@@ -23,7 +23,7 @@ class ApiaryController extends Controller
             //dd($apiary->place_name, $key);
         }
         //dd($apiaries);
-        return view('apiaries', compact('apiaries'));
+        return view('apiaries.index', compact('apiaries'));
     }
 
     /**

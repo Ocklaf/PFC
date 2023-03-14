@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     
     Route::get('beehives/beehivesApiary/{apiary}', [BeehiveController::class, 'beehivesApiary'])->name('beehives.beehivesApiary');
+    Route::get('beehives/addBeehiveToApiary/{apiary}', [BeehiveController::class, 'addBeehiveToApiary'])->name('beehives.addBeehiveToApiary');
 
 
     Route::resource('apiaries', ApiaryController::class);

@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <a href="{{ route('beehives.create') }}" class="btn btn-primary">Crear Colmena</a>
+                <a href="{{ route('beehives.addBeehiveToApiary', $apiary) }}" class="btn btn-primary">Añadir Colmena</a>
             </div>
         </div>
         <div class="row">

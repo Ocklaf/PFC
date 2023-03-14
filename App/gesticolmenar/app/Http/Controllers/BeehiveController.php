@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Beehive;
+use App\Models\Queen;
+use App\Http\Requests\BeehiveRequest;
 
 class BeehiveController extends Controller
 {
@@ -22,7 +24,27 @@ class BeehiveController extends Controller
         $beehives = Beehive::where('apiary_id', $apiary)->paginate(8);
         //dd($beehives);
 
-        return view('beehives', compact('beehives'));
+        return view('beehives.index', compact('beehives', 'apiary'));
+    }
+
+    function addBeehiveToApiary($apiary) {
+        $beehive = new Beehive();
+        $path = 'beehives.store';
+        $user = auth()->user();
+        $freeQueens = Queen::
+            where('user_id', $user->id)
+            ->whereIn('id', function ($query) {
+                $query->select('queen_id')->from('beehives');
+            })->get();
+
+          //  dd(count([]));
+
+        // if(!count($freeQueens))
+        //     dd('No hay reinas disponibles');
+        
+        // dd($freeQueens);
+
+        return view('beehives.form', compact('beehive', 'path', 'freeQueens', 'apiary'));
     }
 
     /**
@@ -36,9 +58,9 @@ class BeehiveController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BeehiveRequest $request)
     {
-        //
+        dd('hola');
     }
 
     /**
@@ -47,6 +69,7 @@ class BeehiveController extends Controller
     public function show(string $id)
     {
         //
+        dd('hola');
     }
 
     /**
