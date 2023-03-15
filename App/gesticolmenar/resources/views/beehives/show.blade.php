@@ -48,7 +48,7 @@
         @else
             <div class="row  d-flex justify-content-center mt-5">
                 <div class="alert alert-danger text-center mb-3 col-6">
-                    Error: No tienes permisos para acceder a esta ubicación
+                    Error: No tienes permisos para ver esta colmena
                 </div>
             </div>
         @endif

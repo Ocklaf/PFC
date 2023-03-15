@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiaryController;
 use App\Http\Controllers\BeehiveController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\QueenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,6 @@ use App\Http\Controllers\PlaceController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('login');
-// });
 
 Route::view('/', 'login');
 Route::view('/register', 'register');
@@ -35,9 +32,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('beehives/beehivesApiary/{apiary}', [BeehiveController::class, 'beehivesApiary'])->name('beehives.beehivesApiary');
     Route::get('beehives/addBeehiveToApiary/{apiary}', [BeehiveController::class, 'addBeehiveToApiary'])->name('beehives.addBeehiveToApiary');
 
-
     Route::resource('apiaries', ApiaryController::class);
     Route::resource('beehives', BeehiveController::class);
     Route::resource('users', UserController::class);
     Route::resource('places', PlaceController::class);
+    Route::resource('queens', QueenController::class);
 });

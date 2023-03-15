@@ -8,66 +8,57 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AuthRequest;
 
-class AuthController extends Controller
-{
+class AuthController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
-    {
+    public function show(User $user) {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
-    {
+    public function edit(User $user) {
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
-    {
+    public function update(Request $request, User $user) {
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
-    {
+    public function destroy(User $user) {
         //
     }
 
-    public function register(AuthRequest $request)
-    {
+    public function register(AuthRequest $request) {
         // $validator = Validator::make($request->all(), [
         //     'explotation_code' => 'required|string|min:10|max:10',
         //     'name' => 'required|string',
@@ -93,24 +84,23 @@ class AuthController extends Controller
         return redirect('/')->withSuccess('Usuario registrado correctamente');
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:100',
             'password' => 'required|string|min:6',
-          ], [
+        ], [
             'email.required' => 'El campo email es obligatorio',
             'email.email' => 'El campo email debe ser un email válido',
             'password.required' => 'El campo contraseña es obligatorio',
             'password.min' => 'El campo contraseña debe tener al menos 6 caracteres',
-          ]);
-        
+        ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator->errors());
         }
-        
+
         $credentials = $request->only('email', 'password');
-       // dd($credentials);
+        // dd($credentials);
         if (!Auth::attempt($credentials)) {
             return back()->withErrors(['error' => 'Email o contraseña incorrectos']);
         }
@@ -120,12 +110,12 @@ class AuthController extends Controller
         $token = $user->createToken('AuthToken')->accessToken;
 
         return redirect('apiaries')
-            ->withSuccess('Inicio de sesión correcto')
+            ->withSuccess('Hola ' . $user->name . '!!')
             ->withInput(['user' => $user, 'access_token' => $token]);
     }
 
     public function logout(Request $request) {
         Auth::logout();
         return redirect('/');
-      }
+    }
 }

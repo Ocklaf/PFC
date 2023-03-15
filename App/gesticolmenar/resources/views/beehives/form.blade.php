@@ -14,7 +14,7 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-6 col-md-8">
                     <div class="text-center">
-                        <a href="" class="btn btn-primary">Añadir Reina</a>
+                        <a href="{{ route('queens.create') }}" class="btn btn-primary">Añadir Reina</a>
                     </div>
                 </div>
             </div>

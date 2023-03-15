@@ -46,7 +46,7 @@ class QueenTableSeeder extends Seeder
             if ($i < 300) {
                 $queen = new Queen();
                 $queen->user_id = 1;
-                $queen->race = $faker->randomElement(['Italiana', 'Carnica', 'Africanizada']);
+                $queen->race = $faker->randomElement(['Ibérica', 'Italiana', 'Europea', 'Cárnica', 'Africana']);
                 $queen->color = $faker->randomElement(['Azul', 'Blanco', 'Amarillo', 'Rojo', 'Verde']);
                 $queen->start_date = getYear($queen->color);
                 //dd($queen->start_date, $queen->color);
@@ -58,7 +58,7 @@ class QueenTableSeeder extends Seeder
 
             $queen = new Queen();
             $queen->user_id = 2;
-            $queen->race = $faker->randomElement(['Italiana', 'Carnica', 'Africanizada']);
+            $queen->race = $faker->randomElement(['Ibérica', 'Italiana', 'Europea', 'Cárnica', 'Africana']);
             $queen->color = $faker->randomElement(['Azul', 'Blanco', 'Amarillo', 'Rojo', 'Verde']);
             $queen->start_date = getYear($queen->color);
             //dd($queen->start_date, $queen->color);
@@ -71,7 +71,7 @@ class QueenTableSeeder extends Seeder
         //Dos reinas no asignadas
         $queen = new Queen();
         $queen->user_id = 1;
-        $queen->race = $faker->randomElement(['Italiana', 'Carnica', 'Africanizada']);
+        $queen->race = $faker->randomElement(['Ibérica', 'Italiana', 'Europea', 'Cárnica', 'Africana']);
         $queen->color = $faker->randomElement(['Azul', 'Blanco', 'Amarillo', 'Rojo', 'Verde']);
         $queen->start_date = getYear($queen->color);
         //dd($queen->start_date, $queen->color);
@@ -81,7 +81,7 @@ class QueenTableSeeder extends Seeder
 
         $queen = new Queen();
         $queen->user_id = 2;
-        $queen->race = $faker->randomElement(['Italiana', 'Carnica', 'Africanizada']);
+        $queen->race = $faker->randomElement(['Ibérica', 'Italiana', 'Europea', 'Cárnica', 'Africana']);
         $queen->color = $faker->randomElement(['Azul', 'Blanco', 'Amarillo', 'Rojo', 'Verde']);
         $queen->start_date = getYear($queen->color);
         //dd($queen->start_date, $queen->color);

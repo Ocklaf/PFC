@@ -21,8 +21,13 @@ class BeehiveController extends Controller
 
     public function beehivesApiary($apiary)
     {
-        //
+        //->orderBy('user_code')
         $beehives = Beehive::where('apiary_id', $apiary)->paginate(8);
+
+        // foreach ($beehives as $beehive) {
+        //     $beehive->place_name = Place::where('id', $beehive->apiary_id)->pluck('name')->first();
+        // }
+
         //dd($beehives);
 
         return view('beehives.index', compact('beehives', 'apiary'));
@@ -65,6 +70,7 @@ class BeehiveController extends Controller
         //dd('hola');
         $beehive = new Beehive();
         $beehive->type = $request->type;
+        $beehive->user_code = $request->user_code;
         $beehive->honey_frames = $request->honey_frames;
         $beehive->pollen_frames = $request->pollen_frames;
         $beehive->brood_frames = $request->brood_frames;
@@ -137,6 +143,8 @@ class BeehiveController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $beehive = Beehive::findOrFail($id);
+        $beehive->delete();
+        return redirect()->route('beehives.beehivesApiary', $beehive->apiary_id)->withSuccess('Colmena eliminada correctamente');
     }
 }

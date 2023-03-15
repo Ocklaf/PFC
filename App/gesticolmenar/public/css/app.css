@@ -1,11 +1,14 @@
-.navbar {
+/*Navbar and Footer background*/
+.navbar, .copyright, .icons-copyright {
   background-color: #B1DFEA;
 }
 
-.copyright, .icons-copyright {
-  background-color: #B1DFEA;
-}
-
+/*Cards show views*/
 .user-card, .place-card, .beehive-card {
   background-color: rgba(193, 148 , 0, .3);
+}
+
+/*Queen create*/
+.input-disabled, .input-disabled:focus {
+  background-color:rgb(236, 236, 236) !important;
 }
