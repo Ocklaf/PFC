@@ -25,13 +25,29 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link" aria-current="page" href="{{ route('apiaries.index') }}">Mis Colmenares</a>
-                    {{-- <a class="nav-link" href="#">Features</a>
-                    <a class="nav-link" href="#">Pricing</a> --}}
+                    <a class="nav-link" aria-current="page" href="{{ route('apiaries.index') }}">Colmenares</a>
+
+                    {{-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Colmenas
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach($apiaries as $apiary)
+                                <li><a class="dropdown-item" href="{{ route('beehives.beehivesApiary', $apiary->id) }}">{{ $apiary->place_name }}</a></li>
+                            @endforeach
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                      </li> --}}
+
+                    <a class="nav-link" href="{{ route('places.index') }}">Ubicaciones</a>
                     <a class="nav-link" href="{{ route('users.index')}}">Perfil <i class="bi bi-person-circle"></i></a>
                     <a class="nav-link" href="{{ route('logout') }}">Logout
                         <i class="bi bi-box-arrow-right"></i>
                     </a>
+
+
                 </div>
             </div>
         </div>

@@ -22,7 +22,6 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        //dd($this->route('user'));
         return [
             'explotation_code' => ['required',
             'regex:/^[A-Z0-9]*$/',

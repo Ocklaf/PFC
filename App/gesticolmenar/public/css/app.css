@@ -6,6 +6,6 @@
   background-color: #B1DFEA;
 }
 
-.user-card {
+.user-card, .place-card, .beehive-card {
   background-color: rgba(193, 148 , 0, .3);
 }

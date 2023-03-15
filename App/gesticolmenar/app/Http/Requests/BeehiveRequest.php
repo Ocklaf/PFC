@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BeehiveRequest extends FormRequest {
     /**
@@ -21,6 +22,7 @@ class BeehiveRequest extends FormRequest {
 
 
         return [
+            'user_code' => ['required', 'string', Rule::unique('beehives')->ignore($this->route('beehive'))],
             'type' => 'required|string',
             'honey_frames' => 'required|integer',
             'pollen_frames' => 'required|integer',
@@ -47,6 +49,9 @@ class BeehiveRequest extends FormRequest {
      */
     public function messages(): array {
         return [
+            'user_code.required' => 'El código de la colmena es obligatorio',
+            'user_code.unique' => 'El código de la colmena ya existe',
+            'user_code.string' => 'El código de la colmena debe ser una cadena de texto',
             'type.required' => 'El tipo de colmena es obligatorio',
             'honey_frames.required' => 'El número de cuadros de miel es obligatorio',
             'pollen_frames.required' => 'El número de cuadros de polen es obligatorio',

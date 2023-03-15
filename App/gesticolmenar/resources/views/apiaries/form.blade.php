@@ -6,15 +6,21 @@
         @if (!count($freePlaces))
             <div class="row d-flex justify-content-center mt-4">
                 <div class="col-lg-6 col-md-8">
-                    <div class="alert alert-danger text-center">
-                        No existen Lugares disponibles, debes añadir uno antes de añadir un colmenar.
-                    </div>
+                    @if ($path === 'apiaries.update')
+                        <div class="alert alert-danger text-center">
+                            No existen Ubicaciones disponibles, debes añadir una antes de editar la ubicación.
+                        </div>
+                    @else
+                        <div class="alert alert-danger text-center">
+                            No existen Ubicaciones disponibles, debes añadir una antes de añadir un colmenar.
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-6 col-md-8">
                     <div class="text-center">
-                        <a href="{{ route('places.create') }}" class="btn btn-primary">Añadir Lugar</a>
+                        <a href="{{ route('places.create') }}" class="btn btn-primary">Añadir Ubicación</a>
                     </div>
                 </div>
             </div>
@@ -81,10 +87,10 @@
 
 
                             @if (count($freePlaces))
-                            <label class="form-label" for="type">Emplazamiento</label>
+                                <label class="form-label" for="type">Emplazamiento</label>
                                 <select class="form-select form-select-lg" name="place_id" id="place_id">
                                     @foreach ($freePlaces as $place)
-                                        <option value="{{ $place->id }}">{{ $place->name}}</option>
+                                        <option value="{{ $place->id }}">{{ $place->name }}</option>
                                     @endforeach
                                 </select>
                             @endif
@@ -93,11 +99,11 @@
                             @if (count($freePlaces))
                                 <div class="d-flex justify-content-evenly mt-4">
                                     @if ($path === 'apiaries.update')
-                                    <button type="submit"
-                                        class="btn btn-primary btn-block  gradient-custom text-white">Editar</button>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block  gradient-custom text-white">Editar</button>
                                     @else
-                                    <button type="submit"
-                                        class="btn btn-primary btn-block  gradient-custom text-white">Añadir</button>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block  gradient-custom text-white">Añadir</button>
                                     @endif
 
                                     <a href="{{ route('apiaries.index') }}"

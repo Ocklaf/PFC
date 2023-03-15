@@ -21,6 +21,7 @@
         </div>
         <div class="row">
             <div class="col-12">
+                @if($beehives->count() > 0)
                 <table class="table text-center" style="width: 100%; overflow: hidden">
                     <thead>
                         <tr>
@@ -53,6 +54,11 @@
                         @endforeach
                     </tbody>
                 </table>
+                @else
+                <div class="alert alert-info text-center mt-5">
+                    No hay colmenas registradas
+                </div>
+                @endif
 
                 <div class="d-flex justify-content-center mt-5">
                     {{ $beehives->links() }}

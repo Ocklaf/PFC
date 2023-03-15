@@ -35,6 +35,16 @@
                             @if ($path === 'beehives.update')
                                 @method('PATCH')
                             @endif
+
+                            <div class="form-outline mb-1">
+                                <label class="form-label" for="honey_frames">Código</label>
+                                <input type="text" id="user_code" name="user_code" class="form-control form-control-lg"
+                                        value="{{ old('user_code', $beehive->user_code) }}" />
+                                    @if ($errors->has('user_code'))
+                                        <p class="text-danger">{{ $errors->first('user_code') }}</p>
+                                    @endif
+                            </div>
+
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="type">Tipo de colmena</label>
                                 <select class="form-select form-select-lg" name="type" id="type" name="type">
@@ -42,13 +52,9 @@
                                     <option value="Dadant">Dadant</option>
                                     <option value="Layens">Layens</option>
                                 </select>
-
-                                {{-- <input type="text" id="name" name="name" class="form-control form-control-lg"
-                                        value="{{ old('name', $beehive->name) }}" />
-                                    @if ($errors->has('name'))
-                                        <p class="text-danger">{{ $errors->first('name') }}</p>
-                                    @endif --}}
                             </div>
+
+
 
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="honey_frames">Cantidad de cuadros de Miel</label>

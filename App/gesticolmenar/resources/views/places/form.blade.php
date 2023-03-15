@@ -8,9 +8,9 @@
                 <div class="card" style="border-radius: 15px;">
                     <div class="card-body p-4">
                         @if ($path === 'places.update')
-                            <h3 class="text-uppercase text-center mb-1">Editar Lugar</h3>
+                            <h3 class="text-uppercase text-center mb-1">Editar Ubicación</h3>
                         @else
-                            <h3 class="text-uppercase text-center mb-1">Añadir Lugar</h3>
+                            <h3 class="text-uppercase text-center mb-1">Añadir Ubicación</h3>
                         @endif
 
                         <form action="{{ route($path, $place) }}" method="POST">
@@ -58,8 +58,8 @@
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="postal_code">Código Postal</label>
                                 <input type="text" id="postal_code" name="postal_code"
-                                    pattern="^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$" class="form-control form-control-lg"
-                                    value="{{ old('postal_code', $place->name) }}" />
+                                    class="form-control form-control-lg"
+                                    value="{{ old('postal_code', $place->postal_code) }}" />
                                 @if ($errors->has('postal_code'))
                                     <p class="text-danger">{{ $errors->first('postal_code') }}</p>
                                 @endif

@@ -39,6 +39,7 @@ class BeehiveTableSeeder extends Seeder {
                 $beehive->user_id = 1;
                 $beehive->apiary_id = 1;
                 $beehive->queen_id = $i;
+                $beehive->user_code = '' . 1 . 1 . $i;
                 $beehive->type = 'Langstroth';
                 frames($beehive);
                 $beehive->save();
@@ -50,6 +51,7 @@ class BeehiveTableSeeder extends Seeder {
                 $beehive->user_id = 1;
                 $beehive->apiary_id = 2;
                 $beehive->queen_id = $i;
+                $beehive->user_code = '' . 1 . 2 . $i;
                 $beehive->type =  'Dadant';
                 frames($beehive);
                 $beehive->save();
@@ -60,6 +62,7 @@ class BeehiveTableSeeder extends Seeder {
             $beehive->user_id = 2;
             $beehive->apiary_id = 3;
             $beehive->queen_id = $i;
+            $beehive->user_code = '' . 2 . 3 . $i;
             $beehive->type = 'Layens';
             frames($beehive);
             $beehive->save();

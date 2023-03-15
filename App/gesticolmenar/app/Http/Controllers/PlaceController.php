@@ -13,7 +13,9 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        //
+        $places = Place::where('user_id', auth()->user()->id)->get();
+
+        return view('places.index', compact('places'));
     }
 
     /**
@@ -46,7 +48,7 @@ class PlaceController extends Controller
         }
         $place->save();
 
-        return redirect()->route('apiaries.index');
+        return redirect()->route('apiaries.index')->withSuccess('Ubicación registrada correctamente');
     }
 
     /**
@@ -54,7 +56,9 @@ class PlaceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $place = Place::findOrFail($id);
+
+        return view('places.show', compact('place'));
     }
 
     /**
@@ -62,15 +66,31 @@ class PlaceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $place = Place::findOrFail($id);
+        $path = 'places.update';
+
+        return view('places.form', compact('place', 'path'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PlaceRequest $request, string $id)
     {
-        //
+        $place = Place::findOrFail($id);
+        $place->name = $request->name;
+        $place->catastral_code = $request->catastral_code;
+        $place->poligon = $request->poligon;
+        $place->parcel = $request->parcel;
+        $place->postal_code = $request->postal_code;
+        if ($request->has_water == 'on') {
+            $place->has_water = true;
+        } else {
+            $place->has_water = false;
+        }
+        $place->save();
+
+        return redirect()->route('places.index')->withSuccess('Ubicación actualizada correctamente');
     }
 
     /**
@@ -78,6 +98,10 @@ class PlaceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $place = Place::findOrFail($id);
+
+        $place->delete();
+
+        return redirect()->route('places.index')->withSuccess('Ubicación eliminada correctamente');
     }
 }

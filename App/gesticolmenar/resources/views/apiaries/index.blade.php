@@ -21,11 +21,12 @@
         </div>
         <div class="row">
             <div class="col-12">
+                @if($apiaries->count() > 0)
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <th>Nombre Ubicación</th>
-                            <th>Número de colmenas</th>
+                            <th>Ubicación</th>
+                            <th>Colmenas</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -48,11 +49,17 @@
                         @endforeach
                     </tbody>
                 </table>
+                @else
+                <div class="alert alert-info text-center mt-5">
+                    No hay colmenares registrados
+                </div>
+                @endif
             </div>
         </div>
 
 
         <!-- Modal -->
+        @if($apiaries->count() > 0)
         <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -76,4 +83,5 @@
                 </div>
             </div>
         </div>
+        @endif
     @endsection

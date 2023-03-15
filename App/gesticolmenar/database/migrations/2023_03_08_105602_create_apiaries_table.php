@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('place_id')->unique();
             $table->integer('beehives_quantity');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('place_id')->references('id')->on('places');
+            $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
