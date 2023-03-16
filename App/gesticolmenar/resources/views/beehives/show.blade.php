@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        $honeyId = null;
+        $pollenId = null;
+        $apitoxineId = null;
+    @endphp
     <div class="container-fluid py-5 h-100" style="margin-bottom: 100px">
         @if (session('success'))
             <div class="row  d-flex justify-content-center mt-1">
@@ -12,7 +17,7 @@
 
         @if ($beehive->user_id === auth()->user()->id)
             <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col col-lg-8 mb-4 mb-lg-0">
+                <div class="col col-lg-10 mb-4 mb-lg-0">
                     <div class="card p-5 mb-3 beehive-card" style="border-radius: .5rem;">
                         <div class="row g-0">
                             <div class="col-md-2 gradient-custom text-center"
@@ -21,7 +26,7 @@
                                 <h5 class="text-black mb-4 mt-2">Código: {{ $beehive->user_code }}</h5>
                                 <a href="{{ route('beehives.edit', $beehive) }}" class="btn btn-success">Editar</a>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <div class="card-body p-4 .beehive-card">
                                     <h6>Datos de la colmena</h6>
                                     <hr class="mt-0 mb-4">
@@ -54,7 +59,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <div class="card-body p-4 .beehive-card">
                                     <h6>Producción de la colmena</h6>
                                     <hr class="mt-0 mb-4">
@@ -62,16 +67,67 @@
                                         @foreach ($products as $product)
                                             <div class="col-12">
                                                 <h6>{{ $product->type }}</h6>
-                                                @if ($product->type === 'Miel' || $product->type === 'Polen')
-                                                    <p class="text-muted d-flex justify-content-between">
-                                                        {{ $product->grams / 1000 }} kg <button data-bs-toggle="modal"
-                                                        data-bs-target="#modalEditProduct" data-product-id="{{$product->id}}"
-                                                            class="btn btn-primary"><i class="bi bi-pencil"></i></button></p>
+                                                @if ($product->type === 'Miel')
+                                                    @php
+                                                        $honeyId = $product->id;
+                                                        $honeyQuantity = $product->grams;
+                                                    @endphp
+                                                    <div class="text-muted d-flex justify-content-between mb-3">
+                                                        <p class="product-quantity"> {{ $product->grams / 1000 }} kg </p>
+                                                        <p> <button data-bs-toggle="modal"
+                                                                data-bs-target="#modalEditProductHoney"
+                                                                class="btn btn-primary"><i
+                                                                    class="bi bi-pencil"></i></button></p>
+                                                        <form action="{{ route('products.destroy', $product) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger"><i
+                                                                    class="bi bi-trash3"></i></button>
+                                                        </form>
+                                                    </div>
+                                                @elseif($product->type === 'Polen')
+                                                    @php
+                                                        $pollenId = $product->id;
+                                                        $pollenQuantity = $product->grams;
+                                                    @endphp
+                                                    <div class="text-muted d-flex justify-content-between mb-3">
+                                                        <p class="product-quantity"> {{ $product->grams / 1000 }} kg </p>
+                                                        <p> <button data-bs-toggle="modal"
+                                                                data-bs-target="#modalEditProductPollen"
+                                                                class="btn btn-primary"><i
+                                                                    class="bi bi-pencil"></i></button></p>
+
+                                                        <form action="{{ route('products.destroy', $product) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger"><i
+                                                                    class="bi bi-trash3"></i></button>
+                                                        </form>
+                                                    </div>
                                                 @else
-                                                    <p class="text-muted  d-flex justify-content-between">
-                                                        {{ $product->grams }} grs <button data-bs-toggle="modal"
-                                                        data-bs-target="#modalEditProduct" data-product-id="{{$product->id}}"
-                                                            class="btn btn-primary"><i class="bi bi-pencil"></i></button></p>
+                                                    @php
+                                                        $apitoxineId = $product->id;
+                                                        $apitoxineQuantity = $product->grams;
+                                                    @endphp
+                                                    <div class="text-muted  d-flex justify-content-between mb-3">
+
+                                                    <p class="product-quantity">{{ $product->grams }} grs </p>
+                                                    <p><button data-bs-toggle="modal"
+                                                            data-bs-target="#modalEditProductApitoxine"
+                                                            class="btn btn-primary"><i class="bi bi-pencil"></i></button>
+                                                    
+
+                                                    <form action="{{ route('products.destroy', $product) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger"><i
+                                                                class="bi bi-trash3"></i></button>
+                                                    </form>
+                                                    
+                                                    </div>
                                                 @endif
                                             </div>
                                         @endforeach
@@ -126,7 +182,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-outline mb-1">
+                            <div class="form-outline mb-4">
                                 <label class="form-label" for="grams">Cantidad en gramos</label>
                                 <input type="number" id="grams" name="grams" class="form-control form-control-lg"
                                     value="{{ old('grams') }}" />
@@ -151,16 +207,32 @@
     </div>
 
 
-        <!-- Modal Edit Product -->
-        <div class="modal fade" id="modalEditProduct" tabindex="-1" aria-labelledby="modalEditProductLabel" aria-hidden="true">
+    <!-- Modal Edit Product Honey-->
+    @if ($honeyId != null)
+        <div class="modal fade" id="modalEditProductHoney" tabindex="-1" aria-labelledby="modalEditProductLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalEditProductLabel">Añadir Producto</h1>
+                        <h1 class="modal-title fs-5" id="modalEditProductLabel">Editar cantidad Miel</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                       @dump($product->id)
+                        <form action="{{ route('products.update', $honeyId) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="grams">Cantidad en gramos</label>
+                                <input type="number" min="0" id="grams" name="grams"
+                                    class="form-control form-control-lg" value="{{ old('grams', $honeyQuantity) }}" />
+                                @if ($errors->has('grams'))
+                                    <p class="text-danger">{{ $errors->first('grams') }}</p>
+                                @endif
+                            </div>
+                            <input type="text" name="beehive_id" value="{{ $beehive->id }}" hidden>
+                            <input type="text" name="type" value="Miel" hidden>
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -168,6 +240,76 @@
                 </div>
             </div>
         </div>
+    @endif
 
+    <!-- Modal Edit Product Pollen-->
+    @if ($pollenId != null)
+        <div class="modal fade" id="modalEditProductPollen" tabindex="-1" aria-labelledby="modalEditProductLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalEditProductLabel">Editar cantidad Polen</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('products.update', $pollenId) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="grams">Cantidad en gramos</label>
+                                <input type="number" min="0" id="grams" name="grams"
+                                    class="form-control form-control-lg" value="{{ old('grams', $pollenQuantity) }}" />
+                                @if ($errors->has('grams'))
+                                    <p class="text-danger">{{ $errors->first('grams') }}</p>
+                                @endif
+                            </div>
+                            <input type="text" name="beehive_id" value="{{ $beehive->id }}" hidden>
+                            <input type="text" name="type" value="Polen" hidden>
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
+    <!-- Modal Edit Product Apitoxine-->
+    @if ($apitoxineId != null)
+        <div class="modal fade" id="modalEditProductApitoxine" tabindex="-1" aria-labelledby="modalEditProductLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalEditProductLabel">Editar cantidad Apitoxina</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('products.update', $apitoxineId) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="grams">Cantidad en gramos</label>
+                                <input type="number" min="0" id="grams" name="grams"
+                                    class="form-control form-control-lg"
+                                    value="{{ old('grams', $apitoxineQuantity) }}" />
+                                @if ($errors->has('grams'))
+                                    <p class="text-danger">{{ $errors->first('grams') }}</p>
+                                @endif
+                            </div>
+                            <input type="text" name="beehive_id" value="{{ $beehive->id }}" hidden>
+                            <input type="text" name="type" value="Apitoxina" hidden>
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection

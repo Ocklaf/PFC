@@ -12,3 +12,8 @@
 .input-disabled, .input-disabled:focus {
   background-color:rgb(236, 236, 236) !important;
 }
+
+/*Beehive show products */
+.product-quantity {
+  min-width: 75px;
+}
