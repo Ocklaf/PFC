@@ -7,6 +7,7 @@ use App\Http\Controllers\BeehiveController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\QueenController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('places', PlaceController::class);
     Route::resource('queens', QueenController::class);
+    Route::resource('products', ProductController::class);
 });

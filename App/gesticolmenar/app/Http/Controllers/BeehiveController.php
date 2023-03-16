@@ -7,28 +7,22 @@ use App\Models\Beehive;
 use App\Models\Queen;
 use App\Http\Requests\BeehiveRequest;
 use App\Models\Place;
+use App\Models\Apiary;
+use App\Models\Product;
 
 class BeehiveController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($apiary)
+    public function index()
     {
         //
-        dd('hola');
     }
 
     public function beehivesApiary($apiary)
     {
-        //->orderBy('user_code')
         $beehives = Beehive::where('apiary_id', $apiary)->paginate(8);
-
-        // foreach ($beehives as $beehive) {
-        //     $beehive->place_name = Place::where('id', $beehive->apiary_id)->pluck('name')->first();
-        // }
-
-        //dd($beehives);
 
         return view('beehives.index', compact('beehives', 'apiary'));
     }
@@ -37,21 +31,14 @@ class BeehiveController extends Controller
         $beehive = new Beehive();
         $path = 'beehives.store';
         $user = auth()->user()->id;
-        //Reinas disponibles (no asignadas a ninguna colmena de un usuario concreto)
         $freeQueens = Queen::
             where('user_id', $user)
             ->whereNotIn('id', function ($query) {
                 $query->select('queen_id')->from('beehives');
             })->get();
+        $apiaries = [];
 
-          //  dd(count([]));
-
-        // if(!count($freeQueens))
-        //     dd('No hay reinas disponibles');
-        
-        // dd($freeQueens);
-
-        return view('beehives.form', compact('beehive', 'path', 'freeQueens', 'apiary'));
+        return view('beehives.form', compact('beehive', 'path', 'freeQueens', 'apiary', 'apiaries'));
     }
 
     /**
@@ -67,7 +54,6 @@ class BeehiveController extends Controller
      */
     public function store(BeehiveRequest $request)
     {
-        //dd('hola');
         $beehive = new Beehive();
         $beehive->type = $request->type;
         $beehive->user_code = $request->user_code;
@@ -89,7 +75,12 @@ class BeehiveController extends Controller
     {
         $beehive = Beehive::findOrFail($id);
         $beehive->place_name = Place::where('id', $beehive->apiary_id)->pluck('name')->first();
-        return view('beehives.show', compact('beehive'));
+        $queen = Queen::where('id', $beehive->queen_id)->first();
+
+        $products = Product::where('beehive_id', $id)->get();
+
+       // dd($products);
+        return view('beehives.show', compact('beehive', 'queen', 'products'));
     }
 
     /**
@@ -98,25 +89,26 @@ class BeehiveController extends Controller
     public function edit(string $id)
     {
         $beehive = Beehive::findOrFail($id);
-        $apiary = $beehive->apiary_id;
         $path = 'beehives.update';
         $user = auth()->user()->id;
-        //Reinas disponibles (no asignadas a ninguna colmena de un usuario concreto)
+
         $actualQueen = Queen::where('id', $beehive->queen_id)->get();
+
         $freeQueens = Queen::
         where('user_id', $user)
         ->whereNotIn('id', function ($query) {
             $query->select('queen_id')->from('beehives');
         })->get();
-        
-        // foreach($freeQueens as $queen) {
-        //     $actualQueen->push($queen);
-        // }
-        //     dd($actualQueen);
 
         $freeQueens->prepend($actualQueen->first());
 
-        return view('beehives.form', compact('beehive', 'path', 'freeQueens', 'apiary'));
+        $apiaries = Apiary::where('user_id', $user)->get();
+
+        foreach ($apiaries as $apiary) {
+            $apiary->place_name = Place::where('id', $apiary->place_id)->pluck('name')->first();
+        }
+
+        return view('beehives.form', compact('beehive', 'path', 'freeQueens', 'apiaries'));
     }
 
     /**
@@ -132,6 +124,7 @@ class BeehiveController extends Controller
         $beehive->pollen_frames = $request->pollen_frames;
         $beehive->brood_frames = $request->brood_frames;
         $beehive->user_id = auth()->user()->id;
+        $beehive->apiary_id = $request->apiary_id;
         $beehive->queen_id = $request->queen_id;
         $beehive->save();
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="container" style="margin-bottom: 110px">
+    <section class="container" style="margin-bottom: 125px">
 
         @if (!count($freeQueens))
             <div class="row d-flex justify-content-center mt-4">
@@ -39,10 +39,10 @@
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="honey_frames">Código</label>
                                 <input type="text" id="user_code" name="user_code" class="form-control form-control-lg"
-                                        value="{{ old('user_code', $beehive->user_code) }}" />
-                                    @if ($errors->has('user_code'))
-                                        <p class="text-danger">{{ $errors->first('user_code') }}</p>
-                                    @endif
+                                    value="{{ old('user_code', $beehive->user_code) }}" />
+                                @if ($errors->has('user_code'))
+                                    <p class="text-danger">{{ $errors->first('user_code') }}</p>
+                                @endif
                             </div>
 
                             <div class="form-outline mb-1">
@@ -58,8 +58,8 @@
 
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="honey_frames">Cantidad de cuadros de Miel</label>
-                                <input type="number" min="0" max="10" step="1" id="honey_frames" name="honey_frames"
-                                    class="form-control form-control-lg"
+                                <input type="number" min="0" max="10" step="1" id="honey_frames"
+                                    name="honey_frames" class="form-control form-control-lg"
                                     value="{{ old('honey_frames', $beehive->honey_frames) }}" />
                                 @if ($errors->has('honey_frames'))
                                     <p class="text-danger">{{ $errors->first('honey_frames') }}</p>
@@ -68,8 +68,8 @@
 
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="pollen_frames">Cantidad de cuadros de Polen</label>
-                                <input type="number" min="0" max="10" step="1" id="pollen_frames" name="pollen_frames"
-                                    class="form-control form-control-lg"
+                                <input type="number" min="0" max="10" step="1" id="pollen_frames"
+                                    name="pollen_frames" class="form-control form-control-lg"
                                     value="{{ old('pollen_frames', $beehive->pollen_frames) }}" />
                                 @if ($errors->has('pollen_frames'))
                                     <p class="text-danger">{{ $errors->first('pollen_frames') }}</p>
@@ -78,35 +78,49 @@
 
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="brood_frames">Cantidad de cuadros de cría</label>
-                                <input type="number" min="0" max="10" step="1" id="brood_frames" name="brood_frames"
-                                    class="form-control form-control-lg"
+                                <input type="number" min="0" max="10" step="1" id="brood_frames"
+                                    name="brood_frames" class="form-control form-control-lg"
                                     value="{{ old('brood_frames', $beehive->brood_frames) }}" />
                                 @if ($errors->has('brood_frames'))
                                     <p class="text-danger">{{ $errors->first('brood_frames') }}</p>
                                 @endif
                             </div>
 
-                            <input type="text" name="apiary_id" value="{{$apiary}}" hidden>
-
 
                             @if (count($freeQueens))
-                            <label class="form-label" for="type">Reina</label>
-                                <select class="form-select form-select-lg" name="queen_id" id="queen_id">
-                                    @foreach ($freeQueens as $queen)
-                                        <option value="{{ $queen->id }}">Raza: {{ $queen->race}} - Color:{{$queen->color }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="form-outline mb-1">
+                                    <label class="form-label" for="queen_id">Reina</label>
+                                    <select class="form-select form-select-lg" name="queen_id" id="queen_id">
+                                        @foreach ($freeQueens as $queen)
+                                            <option value="{{ $queen->id }}">Raza: {{ $queen->race }} -
+                                                Color:{{ $queen->color }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            @if (count($apiaries))
+                                <div class="form-outline mb-1">
+                                    <label class="form-label" for="apiary_id">Apiario</label>
+                                    <select class="form-select form-select-lg" name="apiary_id" id="apiary_id">
+                                        @foreach ($apiaries as $apiary)
+                                            <option value="{{ $apiary->id }}">{{ $apiary->place_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @else
+                                <input type="text" name="apiary_id" value="{{ $apiary }}" hidden>
                             @endif
 
 
                             @if (count($freeQueens))
                                 <div class="d-flex justify-content-evenly mt-4">
                                     @if ($path === 'beehives.update')
-                                    <button type="submit"
-                                        class="btn btn-primary btn-block  gradient-custom text-white">Editar</button>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block  gradient-custom text-white">Editar</button>
                                     @else
-                                    <button type="submit"
-                                        class="btn btn-primary btn-block  gradient-custom text-white">Añadir</button>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block  gradient-custom text-white">Añadir</button>
                                     @endif
 
                                     <a href="{{ route('login') }}"

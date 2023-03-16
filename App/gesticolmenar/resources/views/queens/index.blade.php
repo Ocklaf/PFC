@@ -27,19 +27,25 @@
                         <tr>
                             <th>Raza</th>
                             <th>Color</th>
+                            <th>Cambio</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($queens as $queen)
+                        @if(date('Y') === $queen->end_date)
+                            <tr class="table-danger">
+                        @else
                             <tr>
+                        @endif
                                 <td>{{ $queen->race }}</td>
                                 <td>{{ $queen->color }}</td>
+                                <td>{{ $queen->end_date }}</td>
                                 {{-- <td>{{ $queen->pollen_frames }}</td>
                                 <td>{{ $queen->place_name }}</td> --}}
                                 <td class="d-flex justify-content-evenly">
-                                    <a href="{{ route('queens.show', $queen->id) }}" class="btn btn-primary"><i
-                                            class="bi bi-eye"></i></a>
+                                    {{-- <a href="{{ route('queens.show', $queen->id) }}" class="btn btn-primary"><i
+                                            class="bi bi-eye"></i></a> --}}
                                     {{-- <a href="{{ route('queens.edit', $queen->id) }}" class="btn btn-primary"><i
                                             class="bi bi-pencil"></i></a> --}}
                                     <form action="{{ route('queens.destroy', $queen->id) }}" method="POST">
