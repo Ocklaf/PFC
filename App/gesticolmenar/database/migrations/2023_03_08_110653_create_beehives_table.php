@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('honey_frames');
             $table->integer('pollen_frames');
             $table->integer('brood_frames');
-            //$table->integer('total_frames');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('apiary_id')->references('id')->on('apiaries')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('queen_id')->references('id')->on('queens');

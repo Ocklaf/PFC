@@ -12,9 +12,13 @@ class BeehiveTableSeeder extends Seeder {
      * Run the database seeds.
      */
     public function run(): void {
-        $totalOfBeehives = 600;
-        $beehivesApiaryOne = 180;
-        $beehivesApiaryTwo = 120;
+        $totalOfBeehives = 105;
+        $beehivesApiaryOne = 20;
+        $beehivesApiaryTwo = 10;
+        $beehivesApiaryThree = 5;
+        $beehivesApiaryFour = 15;
+        $beehivesApiaryFive = 30;
+        $beehivesApiarySix = 25;
 
         function frames($beehive) {
             $totalFrames = 10;
@@ -58,14 +62,64 @@ class BeehiveTableSeeder extends Seeder {
                 continue;
             }
 
-            $beehive = new Beehive();
-            $beehive->user_id = 2;
-            $beehive->apiary_id = 3;
-            $beehive->queen_id = $i;
-            $beehive->user_code = '' . 2 . 3 . $i;
-            $beehive->type = 'Layens';
-            frames($beehive);
-            $beehive->save();
+            if($i > $beehivesApiaryOne + $beehivesApiaryTwo && $i <= $beehivesApiaryOne + $beehivesApiaryTwo + $beehivesApiaryThree) {
+                $beehive = new Beehive();
+                $beehive->user_id = 1;
+                $beehive->apiary_id = 3;
+                $beehive->queen_id = $i;
+                $beehive->user_code = '' . 1 . 3 . $i;
+                $beehive->type = 'Layens';
+                frames($beehive);
+                $beehive->save();
+                continue;
+            }
+
+            if($i > $beehivesApiaryOne + $beehivesApiaryTwo + $beehivesApiaryThree && $i <= $beehivesApiaryOne + $beehivesApiaryTwo + $beehivesApiaryThree + $beehivesApiaryFour) {
+                $beehive = new Beehive();
+                $beehive->user_id = 1;
+                $beehive->apiary_id = 4;
+                $beehive->queen_id = $i;
+                $beehive->user_code = '' . 1 . 4 . $i;
+                $beehive->type = 'Layens';
+                frames($beehive);
+                $beehive->save();
+                continue;
+            }
+
+            if($i > $beehivesApiaryOne + $beehivesApiaryTwo + $beehivesApiaryThree + $beehivesApiaryFour && $i <= $beehivesApiaryOne + $beehivesApiaryTwo + $beehivesApiaryThree + $beehivesApiaryFour + $beehivesApiaryFive) {
+                $beehive = new Beehive();
+                $beehive->user_id = 1;
+                $beehive->apiary_id = 5;
+                $beehive->queen_id = $i;
+                $beehive->user_code = '' . 1 . 5 . $i;
+                $beehive->type = 'Layens';
+                frames($beehive);
+                $beehive->save();
+                continue;
+            }
+
+            if($i > $beehivesApiaryOne + $beehivesApiaryTwo + $beehivesApiaryThree + $beehivesApiaryFour + $beehivesApiaryFive && $i <= $beehivesApiaryOne + $beehivesApiaryTwo + $beehivesApiaryThree + $beehivesApiaryFour + $beehivesApiaryFive + $beehivesApiarySix) {
+                $beehive = new Beehive();
+                $beehive->user_id = 1;
+                $beehive->apiary_id = 6;
+                $beehive->queen_id = $i;
+                $beehive->user_code = '' . 1 . 6 . $i;
+                $beehive->type = 'Layens';
+                frames($beehive);
+                $beehive->save();
+                continue;
+            }
+
+
+
+            // $beehive = new Beehive();
+            // $beehive->user_id = 1;
+            // $beehive->apiary_id = 3;
+            // $beehive->queen_id = $i;
+            // $beehive->user_code = '' . 2 . 3 . $i;
+            // $beehive->type = 'Layens';
+            // frames($beehive);
+            // $beehive->save();
         }
     }
 }

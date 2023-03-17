@@ -11,7 +11,8 @@
                                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                                 <i class="bi bi-geo-alt" style="font-size: 4rem; color: #461400"></i>
                                 <h5 class="text-black mb-4 mt-2">{{ $place->name }}</h5>
-                                <a href="{{ route('places.edit', $place) }}" class="btn btn-success">Editar</a>
+                                <a href="{{ route('places.edit', $place) }}" class="btn btn-success"><i
+                                    class="bi bi-pencil"></i></a>
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body p-4 .place-card">
