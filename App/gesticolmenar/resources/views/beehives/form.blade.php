@@ -47,7 +47,7 @@
 
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="type">Tipo de colmena</label>
-                                <select class="form-select form-select-lg" name="type" id="type" name="type">
+                                <select class="form-select form-select-lg" name="type" id="type">
                                     <option value="Langstroth">Langstroth</option>
                                     <option value="Dadant">Dadant</option>
                                     <option value="Layens">Layens</option>

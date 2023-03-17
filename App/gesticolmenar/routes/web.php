@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\QueenController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DiseaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('beehives/beehivesApiary/{apiary}', [BeehiveController::class, 'beehivesApiary'])->name('beehives.beehivesApiary');
     Route::get('beehives/addBeehiveToApiary/{apiary}', [BeehiveController::class, 'addBeehiveToApiary'])->name('beehives.addBeehiveToApiary');
+    Route::get('disesases/addDiseaseToBeehive/{beehive}', [DiseaseController::class, 'addDiseaseToBeehive'])->name('diseases.addDiseaseToBeehive');
 
     Route::resource('apiaries', ApiaryController::class);
     Route::resource('beehives', BeehiveController::class);
@@ -39,4 +41,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('places', PlaceController::class);
     Route::resource('queens', QueenController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('diseases', DiseaseController::class);
 });

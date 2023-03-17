@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
         
-        return view('users.index', compact('user'));
+        return view('users.show', compact('user'));
     }
 
     /**

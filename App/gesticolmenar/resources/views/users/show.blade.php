@@ -18,7 +18,8 @@
                             <i class="bi bi-person-lines-fill" style="font-size: 4rem; color: #461400"></i>
                             <h5 class="text-black">{{ $user->name }}</h5>
                             <p class="text-black">{{ $user->surname }}</p>
-                            <a href="{{ route('users.edit', $user) }}" class="btn btn-success">Editar</a>
+                            <a href="{{ route('users.edit', $user) }}" class="btn btn-success"><i
+                                class="bi bi-pencil"></i></a>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body p-4">

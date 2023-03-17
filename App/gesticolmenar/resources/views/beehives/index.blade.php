@@ -32,8 +32,13 @@
                     </thead>
                     <tbody>
                         @foreach ($beehives as $beehive)
+                            @if($beehive->diseases()->get()->count() > 0)
+                                <tr class="table-danger">
+                                    <td><i class="bi bi-heart-pulse"></i> {{ $beehive->user_code }}</td>
+                            @else
                             <tr>
-                                <td>{{ $beehive->user_code }}</td>
+                                <td>{{ $beehive->user_code }} </td>
+                            @endif
                                 <td>{{ $beehive->type }}</td>
                                 {{-- <td>{{ $beehive->pollen_frames }}</td>
                                 <td>{{ $beehive->place_name }}</td> --}}

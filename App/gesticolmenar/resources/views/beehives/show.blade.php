@@ -24,11 +24,14 @@
                                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                                 <i class="bi bi-archive" style="font-size: 4rem; color: #461400"></i>
                                 <h5 class="text-black mb-4 mt-2">Código: {{ $beehive->user_code }}</h5>
-                                <a href="{{ route('beehives.edit', $beehive) }}" class="btn btn-success">Editar</a>
+                                <a href="{{ route('beehives.edit', $beehive) }}" class="btn btn-success"><i
+                                        class="bi bi-pencil"></i></a>
                             </div>
+
+                            {{-- Data column --}}
                             <div class="col-md-3">
                                 <div class="card-body p-4 .beehive-card">
-                                    <h6>Datos de la colmena</h6>
+                                    <h6 class="text-center">Información</h6>
                                     <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
                                         <div class="col-12">
@@ -59,9 +62,10 @@
                                 </div>
                             </div>
 
+                            {{-- Products column --}}
                             <div class="col-md-3">
                                 <div class="card-body p-4 .beehive-card">
-                                    <h6>Producción de la colmena</h6>
+                                    <h6 class="text-center">Productos</h6>
                                     <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
                                         @foreach ($products as $product)
@@ -111,35 +115,70 @@
                                                         $apitoxineId = $product->id;
                                                         $apitoxineQuantity = $product->grams;
                                                     @endphp
-                                                    <div class="text-muted  d-flex justify-content-between mb-3">
+                                                    <div class="text-muted d-flex justify-content-between mb-3">
 
-                                                    <p class="product-quantity">{{ $product->grams }} grs </p>
-                                                    <p><button data-bs-toggle="modal"
-                                                            data-bs-target="#modalEditProductApitoxine"
-                                                            class="btn btn-primary"><i class="bi bi-pencil"></i></button>
-                                                    
+                                                        <p class="product-quantity">{{ $product->grams }} grs </p>
+                                                        <p><button data-bs-toggle="modal"
+                                                                data-bs-target="#modalEditProductApitoxine"
+                                                                class="btn btn-primary"><i
+                                                                    class="bi bi-pencil"></i></button>
 
-                                                    <form action="{{ route('products.destroy', $product) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger"><i
-                                                                class="bi bi-trash3"></i></button>
-                                                    </form>
-                                                    
+
+                                                        <form action="{{ route('products.destroy', $product) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger"><i
+                                                                    class="bi bi-trash3"></i></button>
+                                                        </form>
+
                                                     </div>
                                                 @endif
                                             </div>
                                         @endforeach
+                                        {{-- @if ($products->count() !== 3) --}}
                                         <div class="col-12">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#modalAddProduct">
                                                 Añadir Producto
                                             </button>
                                         </div>
+                                        {{-- @endif --}}
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- Disesases Column --}}
+                            <div class="col-md-3">
+                                <div class="card-body p-4 .beehive-card">
+                                    <h6 class="text-center">Enfermedades</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        @foreach ($diseases as $disease)
+                                            <h6>{{ $disease->name }}</h6>
+                                            <div class="col-12 d-flex justify-content-between mb-3">
+                                                {{-- <p class="text-muted">Inicio tratamiento: {{ date("d-m-Y", strtotime($disease->treatment_start_date)); }}</p> --}}
+                                                <p class="text-muted">Tratar:
+                                                    {{ date('d-m-Y', strtotime($disease->treatment_repeat_date)) }}</p>
+                                                <p><a href="{{ route('diseases.edit', $disease) }}"
+                                                        class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                                                <form action="{{ route('diseases.destroy', $disease) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                            class="bi bi-trash3"></i></button>
+                                                </form>
+                                            </div>
+                                        @endforeach
+                                        <div class="col-12">
+                                            <a type="button" class="btn btn-primary"
+                                                href="{{ route('diseases.addDiseaseToBeehive', $beehive) }}">Registrar
+                                                Enfermedad</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -154,7 +193,8 @@
     </div>
 
     <!-- Modal Add Product -->
-    <div class="modal fade" id="modalAddProduct" tabindex="-1" aria-labelledby="modalAddProductLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAddProduct" tabindex="-1" aria-labelledby="modalAddProductLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

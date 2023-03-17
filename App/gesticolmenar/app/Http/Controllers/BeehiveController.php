@@ -9,6 +9,7 @@ use App\Http\Requests\BeehiveRequest;
 use App\Models\Place;
 use App\Models\Apiary;
 use App\Models\Product;
+use App\Models\Disease;
 
 class BeehiveController extends Controller
 {
@@ -27,7 +28,8 @@ class BeehiveController extends Controller
         return view('beehives.index', compact('beehives', 'apiary'));
     }
 
-    function addBeehiveToApiary($apiary) {
+    public function addBeehiveToApiary($apiary)
+    {
         $beehive = new Beehive();
         $path = 'beehives.store';
         $user = auth()->user()->id;
@@ -78,9 +80,9 @@ class BeehiveController extends Controller
         $queen = Queen::where('id', $beehive->queen_id)->first();
 
         $products = Product::where('beehive_id', $id)->get();
+        $diseases = Disease::where('beehive_id', $id)->get();
 
-       // dd($products);
-        return view('beehives.show', compact('beehive', 'queen', 'products'));
+        return view('beehives.show', compact('beehive', 'queen', 'products', 'diseases'));
     }
 
     /**

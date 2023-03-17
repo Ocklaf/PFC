@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('beehive_id');
-            $table->string('disease');
+            $table->string('name');
             $table->date('treatment_start_date');
             $table->date('treatment_repeat_date');
             $table->foreign('user_id')->references('id')->on('users');
