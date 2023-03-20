@@ -54,8 +54,6 @@
                                 </select>
                             </div>
 
-
-
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="honey_frames">Cantidad de cuadros de Miel</label>
                                 <input type="number" min="0" max="10" step="1" id="honey_frames"
@@ -128,16 +126,12 @@
                                 </div>
                             @endif
 
-
-
-
                         </form>
 
                     </div>
                 </div>
             </div>
         </div>
-
 
     </section>
 @endsection

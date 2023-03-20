@@ -43,7 +43,8 @@
                                 <div class="form-outline mb-1">
                                     <label class="form-label" for="explotation_code">Código Explotación Ganadera</label>
                                     <input type="text" id="explotation_code" name="explotation_code"
-                                        class="form-control form-control-lg" value="{{ old('explotation_code', $user->explotation_code) }}" />
+                                        class="form-control form-control-lg"
+                                        value="{{ old('explotation_code', $user->explotation_code) }}" />
                                     @if ($errors->has('explotation_code'))
                                         <p class="text-danger">{{ $errors->first('explotation_code') }}</p>
                                     @endif
@@ -75,23 +76,13 @@
                                         <p class="text-danger">{{ $errors->first('password_confirmation') }}</p>
                                     @endif
                                 </div>
-                                {{-- 
-                                    <div class="form-check d-flex justify-content-center mb-5">
-                                        <input class="form-check-input me-2" type="checkbox" value=""
-                                            id="form2Example3cg" />
-                                        <label class="form-check-label" for="form2Example3g">
-                                            He leído los <a href="#!" class="text-body"><u>Términos y condiciones</u></a>
-                                        </label>
-                                    </div> --}}
 
                                 <div class="d-flex justify-content-evenly">
                                     <button type="submit"
                                         class="btn btn-primary btn-block  gradient-custom text-white">Editar</button>
-                                        <a
-                                        href="{{ route('login') }}" class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
+                                    <a href="{{ route('apiaries.index') }}"
+                                        class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
                                 </div>
-
-                                
 
                             </form>
 

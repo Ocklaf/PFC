@@ -7,6 +7,7 @@
             <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                 <div class="card" style="border-radius: 15px;">
                     <div class="card-body p-4">
+
                         @if ($path === 'places.update')
                             <h3 class="text-uppercase text-center mb-1">Editar Ubicación</h3>
                         @else
@@ -18,6 +19,7 @@
                             @if ($path === 'places.update')
                                 @method('PATCH')
                             @endif
+
                             <div class="form-outline mb-1">
                                 <label class="form-label" for="name">Nombre</label>
                                 <input type="text" id="name" name="name" class="form-control form-control-lg"
@@ -74,7 +76,6 @@
                               </div>
                             </div>
 
-
                             <div class="d-flex justify-content-evenly mt-4">
                                 @if ($path === 'places.update')
                                     <button type="submit"
@@ -88,17 +89,12 @@
                                     class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
                             </div>
 
-
-
-
-
                         </form>
 
                     </div>
                 </div>
             </div>
         </div>
-
 
     </section>
 @endsection

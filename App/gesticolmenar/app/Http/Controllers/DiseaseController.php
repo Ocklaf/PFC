@@ -6,22 +6,26 @@ use Illuminate\Http\Request;
 use App\Models\Disease;
 use App\Http\Requests\DiseaseRequest;
 
-class DiseaseController extends Controller {
+class DiseaseController extends Controller
+{
     /**
      * Display a listing of the resource.
      */
-    public function index() {
+    public function index()
+    {
         //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() {
+    public function create()
+    {
         dd('create');
     }
 
-    public function addDiseaseToBeehive(string $beehive) {
+    public function addDiseaseToBeehive(string $beehive)
+    {
 
         $disease = new Disease();
         $path = 'diseases.store';
@@ -41,7 +45,8 @@ class DiseaseController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(DiseaseRequest $request) {
+    public function store(DiseaseRequest $request)
+    {
 
         $disease = new Disease();
         $disease->user_id = auth()->user()->id;
@@ -57,14 +62,16 @@ class DiseaseController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {
+    public function show(string $id)
+    {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) {
+    public function edit(string $id)
+    {
         
         $disease = Disease::findOrFail($id);
         $path = 'diseases.update';
@@ -85,7 +92,8 @@ class DiseaseController extends Controller {
     /**
      * Update the specified resource in storage.
      */
-    public function update(DiseaseRequest $request, string $id) {
+    public function update(DiseaseRequest $request, string $id)
+    {
         
         $disease = Disease::findOrFail($id);
         $disease->user_id = auth()->user()->id;
@@ -101,7 +109,8 @@ class DiseaseController extends Controller {
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) {
+    public function destroy(string $id)
+    {
         
         $disease = Disease::findOrFail($id);
 

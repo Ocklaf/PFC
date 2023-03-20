@@ -21,7 +21,9 @@
         </div>
         <div class="row">
             <div class="col-12">
+
                 @if($beehives->count() > 0)
+
                 <table class="table text-center" style="width: 100%; overflow: hidden">
                     <thead>
                         <tr>
@@ -40,23 +42,22 @@
                                 <td>{{ $beehive->user_code }} </td>
                             @endif
                                 <td>{{ $beehive->type }}</td>
-                                {{-- <td>{{ $beehive->pollen_frames }}</td>
-                                <td>{{ $beehive->place_name }}</td> --}}
                                 <td class="d-flex justify-content-evenly">
                                     <a href="{{ route('beehives.show', $beehive->id) }}" class="btn btn-primary"><i
                                             class="bi bi-eye"></i></a>
-                                    {{-- <a href="{{ route('beehives.edit', $beehive->id) }}" class="btn btn-primary"><i
-                                            class="bi bi-pencil"></i></a> --}}
+
                                     <form action="{{ route('beehives.destroy', $beehive->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
                                     </form>
+
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+
                 @else
                 <div class="alert alert-info text-center mt-5">
                     No hay colmenas registradas
@@ -66,6 +67,7 @@
                 <div class="d-flex justify-content-center mt-5">
                     {{ $beehives->links() }}
                 </div>
+                
             </div>
         </div>
     </div>

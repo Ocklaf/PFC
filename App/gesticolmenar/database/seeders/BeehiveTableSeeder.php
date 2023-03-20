@@ -109,17 +109,6 @@ class BeehiveTableSeeder extends Seeder {
                 $beehive->save();
                 continue;
             }
-
-
-
-            // $beehive = new Beehive();
-            // $beehive->user_id = 1;
-            // $beehive->apiary_id = 3;
-            // $beehive->queen_id = $i;
-            // $beehive->user_code = '' . 2 . 3 . $i;
-            // $beehive->type = 'Layens';
-            // frames($beehive);
-            // $beehive->save();
         }
     }
 }

@@ -29,8 +29,6 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-
-        //dd('hola store products');
         $product = new Product();
         $product->user_id = auth()->user()->id;
         $product->beehive_id = $request->beehive_id;

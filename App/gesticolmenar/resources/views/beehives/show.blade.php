@@ -136,14 +136,14 @@
                                                 @endif
                                             </div>
                                         @endforeach
-                                        {{-- @if ($products->count() !== 3) --}}
+
                                         <div class="col-12">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#modalAddProduct">
                                                 Añadir Producto
                                             </button>
                                         </div>
-                                        {{-- @endif --}}
+
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +157,6 @@
                                         @foreach ($diseases as $disease)
                                             <h6>{{ $disease->name }}</h6>
                                             <div class="col-12 d-flex justify-content-between mb-3">
-                                                {{-- <p class="text-muted">Inicio tratamiento: {{ date("d-m-Y", strtotime($disease->treatment_start_date)); }}</p> --}}
                                                 <p class="text-muted">Tratar:
                                                     {{ date('d-m-Y', strtotime($disease->treatment_repeat_date)) }}</p>
                                                 <p><a href="{{ route('diseases.edit', $disease) }}"
@@ -202,6 +201,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                     @php
                         $options = ['Miel', 'Polen', 'Apitoxina'];
                         $types = [];
@@ -210,7 +210,9 @@
                         }
                         $types = array_diff($options, $types);
                     @endphp
+
                     @if (count($types) > 0)
+
                         <form action="{{ route('products.store') }}" method="POST">
                             @csrf
                             <div class="form-outline mb-1">
@@ -233,15 +235,19 @@
                             <input type="text" name="beehive_id" value="{{ $beehive->id }}" hidden>
                             <button type="submit" class="btn btn-primary">Añadir</button>
                         </form>
+
                     @else
                         <p class="alert alert-danger text-center">
                             Esta colmena ya tiene todos los productos.
                         </p>
                     @endif
+
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -258,6 +264,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
                         <form action="{{ route('products.update', $honeyId) }}" method="POST">
                             @csrf
                             @method('PATCH')
@@ -273,10 +280,13 @@
                             <input type="text" name="type" value="Miel" hidden>
                             <button type="submit" class="btn btn-primary">Editar</button>
                         </form>
+
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -293,6 +303,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
                         <form action="{{ route('products.update', $pollenId) }}" method="POST">
                             @csrf
                             @method('PATCH')
@@ -308,10 +319,13 @@
                             <input type="text" name="type" value="Polen" hidden>
                             <button type="submit" class="btn btn-primary">Editar</button>
                         </form>
+
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -328,6 +342,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
                         <form action="{{ route('products.update', $apitoxineId) }}" method="POST">
                             @csrf
                             @method('PATCH')
@@ -344,10 +359,13 @@
                             <input type="text" name="type" value="Apitoxina" hidden>
                             <button type="submit" class="btn btn-primary">Editar</button>
                         </form>
+
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     </div>
+                    
                 </div>
             </div>
         </div>

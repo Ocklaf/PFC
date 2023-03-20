@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Queen;
 
-function getColor($year) {
+function getColor($year)
+{
+    
     $lastDigitYear = (substr($year, -1));
 
     $colors = [
@@ -24,11 +26,14 @@ function getColor($year) {
     return $colors[$lastDigitYear];
 }
 
-class QueenController extends Controller {
+class QueenController extends Controller
+{
     /**
      * Display a listing of the resource.
      */
-    public function index() {
+    public function index()
+    {
+
         $user = auth()->user()->id;
         $queens = Queen::where('user_id', $user)
             ->whereNotIn('id', function ($query) {
@@ -41,7 +46,9 @@ class QueenController extends Controller {
     /**
      * Show the form for creating a new resource.
      */
-    public function create() {
+    public function create()
+    {
+
         $queen = new Queen();
         $queen->color = getColor(date('Y'));
         $queen->start_date = date('Y');
@@ -56,7 +63,9 @@ class QueenController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
+
         $queen = new Queen();
         $queen->user_id = auth()->user()->id;
         $queen->race = $request->race;
@@ -71,28 +80,32 @@ class QueenController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {
+    public function show(string $id)
+    {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) {
+    public function edit(string $id)
+    {
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id) {
+    public function update(Request $request, string $id)
+    {
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) {
+    public function destroy(string $id)
+    {
         //
     }
 }

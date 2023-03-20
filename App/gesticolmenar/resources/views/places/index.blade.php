@@ -21,7 +21,9 @@
         </div>
         <div class="row">
             <div class="col-12">
+
                 @if ($places->count() > 0)
+
                     <table class="table text-center">
                         <thead>
                             <tr>
@@ -32,6 +34,7 @@
                         </thead>
                         <tbody>
                             @foreach ($places as $place)
+
                                 @if (!$place->apiary()->count())
                                     <tr class="table-success">
                                         <td>{{ $place->name }}</td>
@@ -39,6 +42,7 @@
                                     <tr>
                                         <td>{{ $place->name }}</td>
                                 @endif
+                                
                                 <td>{{ $place->catastral_code }}</td>
                                 <td class="d-flex justify-content-evenly">
                                     <a href="{{ route('places.show', $place->id) }}" class="btn btn-primary"><i
@@ -50,11 +54,13 @@
                             @endforeach
                         </tbody>
                     </table>
+
                 @else
                     <div class="alert alert-info text-center mt-5">
                         No hay ubicaciones registradas
                     </div>
                 @endif
+
             </div>
         </div>
 

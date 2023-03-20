@@ -11,7 +11,6 @@ class PlaceTableSeeder extends Seeder {
      * Run the database seeds.
      */
     public function run(): void {
-        /*Usuario 1*/
         $place = new Place();
         $place->user_id = 1;
         $place->name = 'La Chinela';
@@ -62,7 +61,6 @@ class PlaceTableSeeder extends Seeder {
         $place->has_water = false;
         $place->save();
 
-        //Lugares sin asignar un colmenar usuario 1
         $place = new Place();
         $place->user_id = 1;
         $place->name = 'La Pinada';
@@ -72,25 +70,5 @@ class PlaceTableSeeder extends Seeder {
         $place->postal_code = '46085';
         $place->has_water = true;
         $place->save();
-
-        // $place = new Place();
-        // $place->user_id = 1;
-        // $place->name = 'La Poceta';
-        // $place->catastral_code = 'RSAA4H0330ARÑP747324';
-        // $place->poligon = '98';
-        // $place->parcel = '765';
-        // $place->postal_code = '46018';
-        // $place->has_water = true;
-        // $place->save();
-
-        // $place = new Place();
-        // $place->user_id = 1;
-        // $place->name = 'Caseta rallada';
-        // $place->catastral_code = '123ABC0000JKAAS12347';
-        // $place->poligon = '12';
-        // $place->parcel = '345';
-        // $place->postal_code = '46001';
-        // $place->has_water = false;
-        // $place->save();
     }
 }

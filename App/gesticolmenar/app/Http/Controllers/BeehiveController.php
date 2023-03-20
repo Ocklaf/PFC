@@ -78,7 +78,6 @@ class BeehiveController extends Controller
         $beehive = Beehive::findOrFail($id);
         $beehive->place_name = Place::where('id', $beehive->apiary_id)->pluck('name')->first();
         $queen = Queen::where('id', $beehive->queen_id)->first();
-
         $products = Product::where('beehive_id', $id)->get();
         $diseases = Disease::where('beehive_id', $id)->get();
 
@@ -93,7 +92,6 @@ class BeehiveController extends Controller
         $beehive = Beehive::findOrFail($id);
         $path = 'beehives.update';
         $user = auth()->user()->id;
-
         $actualQueen = Queen::where('id', $beehive->queen_id)->get();
 
         $freeQueens = Queen::
@@ -139,7 +137,9 @@ class BeehiveController extends Controller
     public function destroy(string $id)
     {
         $beehive = Beehive::findOrFail($id);
+        
         $beehive->delete();
+
         return redirect()->route('beehives.beehivesApiary', $beehive->apiary_id)->withSuccess('Colmena eliminada correctamente');
     }
 }

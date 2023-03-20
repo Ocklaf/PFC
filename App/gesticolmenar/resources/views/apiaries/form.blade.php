@@ -42,50 +42,6 @@
                                 @method('PATCH')
                             @endif
 
-                            {{-- <div class="form-outline mb-1">
-                                <label class="form-label" for="type">Emplazamiento</label>
-                                <select class="form-select form-select-lg" name="type" id="type" name="type">
-                                    <option value="Langstroth">Langstroth</option>
-                                    <option value="Dadant">Dadant</option>
-                                    <option value="Layens">Layens</option>
-                                </select>
-
-
-                            </div> --}}
-
-                            {{-- <div class="form-outline mb-1">
-                                <label class="form-label" for="honey_frames">Cantidad de cuadros de Miel</label>
-                                <input type="number" min="0" max="10" step="1" id="honey_frames" name="honey_frames"
-                                    class="form-control form-control-lg"
-                                    value="{{ old('honey_frames', $apiary->honey_frames) }}" />
-                                @if ($errors->has('honey_frames'))
-                                    <p class="text-danger">{{ $errors->first('honey_frames') }}</p>
-                                @endif
-                            </div>
-
-                            <div class="form-outline mb-1">
-                                <label class="form-label" for="pollen_frames">Cantidad de cuadros de Polen</label>
-                                <input type="number" min="0" max="10" step="1" id="pollen_frames" name="pollen_frames"
-                                    class="form-control form-control-lg"
-                                    value="{{ old('pollen_frames', $apiary->pollen_frames) }}" />
-                                @if ($errors->has('pollen_frames'))
-                                    <p class="text-danger">{{ $errors->first('pollen_frames') }}</p>
-                                @endif
-                            </div>
-
-                            <div class="form-outline mb-1">
-                                <label class="form-label" for="brood_frames">Cantidad de cuadros de cría</label>
-                                <input type="number" min="0" max="10" step="1" id="brood_frames" name="brood_frames"
-                                    class="form-control form-control-lg"
-                                    value="{{ old('brood_frames', $apiary->brood_frames) }}" />
-                                @if ($errors->has('brood_frames'))
-                                    <p class="text-danger">{{ $errors->first('brood_frames') }}</p>
-                                @endif
-                            </div>
-
-                            <input type="text" name="apiary_id" value="{{$apiary}}" hidden> --}}
-
-
                             @if (count($freePlaces))
                                 <label class="form-label" for="type">Emplazamiento</label>
                                 <select class="form-select form-select-lg" name="place_id" id="place_id">
@@ -94,7 +50,6 @@
                                     @endforeach
                                 </select>
                             @endif
-
 
                             @if (count($freePlaces))
                                 <div class="d-flex justify-content-evenly mt-4">
@@ -111,16 +66,12 @@
                                 </div>
                             @endif
 
-
-
-
                         </form>
 
                     </div>
                 </div>
             </div>
         </div>
-
 
     </section>
 @endsection

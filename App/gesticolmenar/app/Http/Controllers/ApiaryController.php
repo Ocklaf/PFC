@@ -7,29 +7,30 @@ use App\Models\Apiary;
 use App\Models\Place;
 use App\Models\Beehive;
 
-class ApiaryController extends Controller {
+class ApiaryController extends Controller
+{
     /**
      * Display a listing of the resource.
      */
-    public function index() {
-        // dd('hola');
+    public function index()
+    {
+
         $user = auth()->user()->id;
-        $apiaries = Apiary::where('user_id', $user)->get();    
+        $apiaries = Apiary::where('user_id', $user)->get();
 
         foreach ($apiaries as $apiary) {
             $apiary->place_name = Place::where('id', $apiary->place_id)->pluck('name')->first();
             $apiary->beehives_quantity = Beehive::where('apiary_id', $apiary->id)->count();
-            //$apiary->beehives->count();
-            //dd($apiary->place_name, $key);
         }
-        //dd($apiaries);
+
         return view('apiaries.index', compact('apiaries'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() {
+    public function create()
+    {
         $apiary = new Apiary();
         $path = 'apiaries.store';
         $user = auth()->user()->id;
@@ -39,16 +40,14 @@ class ApiaryController extends Controller {
                 $query->select('place_id')->from('apiaries');
             })->get();
 
-        //dd($freePlaces);
-
         return view('apiaries.form', compact('apiary', 'path', 'freePlaces'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
-        //dd('hola');
+    public function store(Request $request)
+    {
         $apiary = new Apiary();
         $apiary->user_id = auth()->user()->id;
         $apiary->place_id = $request->place_id;
@@ -61,14 +60,17 @@ class ApiaryController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {
+    public function show(string $id)
+    {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) {
+    public function edit(string $id)
+    {
+
         $apiary = Apiary::findOrFail($id);
 
         $path = 'apiaries.update';
@@ -86,7 +88,9 @@ class ApiaryController extends Controller {
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id) {
+    public function update(Request $request, string $id)
+    {
+
         $apiary = Apiary::findOrFail($id);
         $apiary->place_id = $request->place_id;
         $apiary->save();
@@ -97,7 +101,9 @@ class ApiaryController extends Controller {
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) {
+    public function destroy(string $id)
+    {
+
         $apiary = Apiary::findOrFail($id);
 
         $apiary->delete();

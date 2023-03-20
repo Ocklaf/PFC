@@ -6,6 +6,7 @@
             <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                 <div class="card" style="border-radius: 15px;">
                     <div class="card-body p-4">
+
                         @if ($path === 'diseases.update')
                             <h3 class="text-uppercase text-center mb-1">Editar Enfermedad</h3>
                         @else
@@ -14,6 +15,7 @@
 
                         <form action="{{ route($path, $disease) }}" method="POST">
                             @csrf
+
                             @if ($path === 'diseases.update')
                                 @method('PATCH')
                             @endif
@@ -51,6 +53,7 @@
                             <input type="text" name="beehive_id" value="{{ $beehive }}" hidden>
 
                             <div class="d-flex justify-content-evenly mt-4">
+
                                 @if ($path === 'diseases.update')
                                     <button type="submit"
                                         class="btn btn-primary btn-block  gradient-custom text-white">Editar</button>
@@ -69,7 +72,6 @@
                 </div>
             </div>
         </div>
-
 
     </section>
 @endsection
