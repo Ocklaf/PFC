@@ -29,7 +29,7 @@
                         <tr>
                             <th>Código</th>
                             <th>Tipo</th>
-                            <th></th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

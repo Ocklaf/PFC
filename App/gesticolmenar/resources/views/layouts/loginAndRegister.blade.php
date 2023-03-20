@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico')}}">
 </head>
 
-<body class="bg-image">
+<body class="login-register-bg">
 
     @yield('content')
 

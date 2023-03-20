@@ -10,6 +10,8 @@ use App\Http\Controllers\QueenController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DiseaseController;
 
+use App\Http\Controllers\ChartController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,10 +32,14 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    
+
     Route::get('beehives/beehivesApiary/{apiary}', [BeehiveController::class, 'beehivesApiary'])->name('beehives.beehivesApiary');
     Route::get('beehives/addBeehiveToApiary/{apiary}', [BeehiveController::class, 'addBeehiveToApiary'])->name('beehives.addBeehiveToApiary');
     Route::get('disesases/addDiseaseToBeehive/{beehive}', [DiseaseController::class, 'addDiseaseToBeehive'])->name('diseases.addDiseaseToBeehive');
+
+    Route::get('charts/honeyApiaries', [ChartController::class, 'honeyApiaries'])->name('charts.honeyApiaries');
+    Route::get('charts/pollenApiaries', [ChartController::class, 'pollenApiaries'])->name('charts.pollenApiaries');
+    Route::get('charts/apitoxineApiaries', [ChartController::class, 'apitoxineApiaries'])->name('charts.apitoxineApiaries');
 
     Route::resource('apiaries', ApiaryController::class);
     Route::resource('beehives', BeehiveController::class);
@@ -42,4 +48,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('queens', QueenController::class);
     Route::resource('products', ProductController::class);
     Route::resource('diseases', DiseaseController::class);
+    // Route::resource('charts', HoneyApiaryChartController::class);
 });

@@ -32,7 +32,7 @@
 
                                 <div class="form-outline mb-1">
                                     <label class="form-label" for="dni">DNI</label>
-                                    <input type="text" id="dni" name="dni" class="form-control form-control-lg"
+                                    <input type="text" id="dni" name="dni" class="form-control form-control-lg" placeholder="12345678A"
                                         value="{{ old('dni') }}" />
                                     @if ($errors->has('dni'))
                                         <p class="text-danger">{{ $errors->first('dni') }}</p>
@@ -42,7 +42,7 @@
                                 <div class="form-outline mb-1">
                                     <label class="form-label" for="explotation_code">Código Explotación Ganadera</label>
                                     <input type="text" id="explotation_code" name="explotation_code"
-                                        class="form-control form-control-lg" value="{{ old('explotation_code') }}" />
+                                        class="form-control form-control-lg" placeholder="ES12345678" value="{{ old('explotation_code') }}" />
                                     @if ($errors->has('explotation_code'))
                                         <p class="text-danger">{{ $errors->first('explotation_code') }}</p>
                                     @endif
@@ -50,7 +50,7 @@
 
                                 <div class="form-outline mb-1">
                                     <label class="form-label" for="email">Email</label>
-                                    <input type="email" id="email" name="email" class="form-control form-control-lg"
+                                    <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="ejemplo@email.es"
                                         value="{{ old('email') }}" />
                                     @if ($errors->has('email'))
                                         <p class="text-danger">{{ $errors->first('email') }}</p>
@@ -60,7 +60,7 @@
                                 <div class="form-outline mb-1">
                                     <label class="form-label" for="password">Contraseña</label>
                                     <input type="password" id="password" name="password"
-                                        class="form-control form-control-lg" />
+                                        class="form-control form-control-lg" placeholder="Mínimo 8 carácteres" />
                                     @if ($errors->has('password'))
                                         <p class="text-danger">{{ $errors->first('password') }}</p>
                                     @endif

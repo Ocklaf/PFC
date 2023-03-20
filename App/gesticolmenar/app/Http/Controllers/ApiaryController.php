@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Apiary;
 use App\Models\Place;
 use App\Models\Beehive;
+use App\Models\Product;
 
 class ApiaryController extends Controller
 {
@@ -15,13 +16,34 @@ class ApiaryController extends Controller
     public function index()
     {
 
+        $honeyEachApiary = [];
+        $pollenEachApiary = [];
+        $apitoxineEachApiary = [];
         $user = auth()->user()->id;
         $apiaries = Apiary::where('user_id', $user)->get();
 
         foreach ($apiaries as $apiary) {
             $apiary->place_name = Place::where('id', $apiary->place_id)->pluck('name')->first();
             $apiary->beehives_quantity = Beehive::where('apiary_id', $apiary->id)->count();
+
+            // $honey = Product::where('beehive_id', $apiary->id)->where('type', 'Miel')->sum('grams');
+            // dd($honey);
+
+            $beehives = Beehive::where('apiary_id', $apiary->id)->get();
+            $honey = 0;
+            $pollen = 0;
+            $apitoxine = 0;
+
+            foreach ($beehives as $beehive) {
+                $honey += Product::where('beehive_id', $beehive->id)->where('type', 'Miel')->sum('grams');
+                $pollen += Product::where('beehive_id', $beehive->id)->where('type', 'Polen')->sum('grams');
+                $apitoxine += Product::where('beehive_id', $beehive->id)->where('type', 'Apitoxina')->sum('grams');
+            }
+            array_push($honeyEachApiary, $honey);
+            array_push($pollenEachApiary, $pollen);
+            array_push($apitoxineEachApiary, $apitoxine);
         }
+        //dd($honeyEachApiary, $pollenEachApiary, $apitoxineEachApiary);
 
         return view('apiaries.index', compact('apiaries'));
     }

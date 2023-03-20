@@ -18,7 +18,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <a href="{{ route('apiaries.create') }}" class="btn btn-primary">Añadir Colmenar</a>
+                <a class="btn btn-primary" href="{{ route('apiaries.create') }}">Añadir Colmenar</a>
             </div>
         </div>
         <div class="row">
@@ -52,6 +52,18 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <div class="row text-center mt-5">
+                        <div class="col-4">
+                            <a class="btn btn-primary" href="{{ route('charts.honeyApiaries')}}">Gráfica Miel</a>
+                        </div>
+                        <div class="col-4 ">
+                            <a class="btn btn-primary" href="{{ route('charts.pollenApiaries')}}">Gráfica Polen</a>
+                        </div>
+                        <div class="col-4 ">
+                            <a class="btn btn-primary" href="{{ route('charts.apitoxineApiaries')}}">Gráfica Apitoxina</a>
+                        </div>
+                    </div>
 
                 @else
                     <div class="alert alert-info text-center mt-5">

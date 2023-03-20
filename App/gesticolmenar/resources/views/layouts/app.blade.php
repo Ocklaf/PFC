@@ -24,14 +24,14 @@
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link" aria-current="page" href="{{ route('apiaries.index') }}">Colmenares</a>
                     <a class="nav-link" href="{{ route('places.index') }}">Ubicaciones</a>
-                    <a class="nav-link" href="{{ route('queens.index') }}">Reinas disponibles</a>
-                    <a class="nav-link" href="{{ route('users.index')}}">Perfil <i class="bi bi-person-circle"></i></a>
-                    <a class="nav-link" href="{{ route('logout') }}">Logout
-                        <i class="bi bi-box-arrow-right"></i>
+                    <a class="nav-link me-5" href="{{ route('queens.index') }}">Reinas disponibles</a>
+                    <a class="nav-link" href="{{ route('users.index')}}"> <i class="bi bi-person-circle me-2 h5"></i></a>
+                    <a class="nav-link" href="{{ route('logout') }}">
+                        <i class="bi bi-box-arrow-right h5"></i>
                     </a>
                 </div>
             </div>
@@ -60,6 +60,7 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
     <script src="https://kit.fontawesome.com/5b4a7e4489.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
 </body>
 
 </html>

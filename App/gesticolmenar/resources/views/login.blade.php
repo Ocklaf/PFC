@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section class="vh-100 gradient-form" style="background-color: #eee;">
+    <section class="vh-100 gradient-form login-register-bg" >
         <div class="container py-5 vh-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
@@ -28,7 +28,7 @@
                                         @csrf
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="email">Email</label>
-                                            <input type="email" class="form-control" name="email" id="email"
+                                            <input type="email" class="form-control form-control-lg" name="email" id="email"
                                                 placeholder="Introduce tu email" value="{{ old('email') }}" />
                                             @if ($errors->has('email'))
                                                 <p class="text-danger">{{ $errors->first('email') }}</p>
@@ -37,18 +37,16 @@
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="password">Contraseña</label>
-                                            <input type="password" class="form-control" name="password" id="password"
+                                            <input type="password" class="form-control form-control-lg" name="password" id="password"
                                                 placeholder="Introduce tu contraseña" />
                                             @if ($errors->has('password'))
                                                 <p class="text-danger">{{ $errors->first('password') }}</p>
                                             @endif
-
                                         </div>
 
                                         <div class="text-center pt-1 mb-5 pb-1">
-                                            <button class="btn btn-primary btn-block fa-lg gradient-custom mb-3"
+                                            <button class="btn btn-primary btn-lg btn-block fa-lg gradient-custom mb-3"
                                                 type="submit">Entrar</button>
-                                            {{-- <a class="text-muted" href="#!">Forgot password?</a> --}}
                                         </div>
 
                                         <div class="d-flex align-items-center justify-content-center pb-4">
@@ -61,14 +59,20 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 d-flex align-items-center gradient-custom">
-                                <div class="px-3 py-4 p-md-5 mx-md-4">
-                                    <h3 class="text-white mb-4 text-center">La gestión de tus colmenas</h3>
+                                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                    <h3 class="mb-4 text-center">La gestión de tus colmenas</h3>
                                     <p class="text-white small mb-0">Aplicación Web creada para la gestión de la información
                                         relacionada con
-                                        las colmenas, colmenares, ubicación, enfermedades, reinas, recolectas, etc.
+                                        los colmenares y sus colmenas, ubicación, enfermedades, reinas y productos.
                                     </p>
                                     <p class="text-white small mt-2">Completamente gratuita y sin coste alguno, simplemente,
                                         regístrate y empieza a tener toda la información localizada en un solo lugar.
+                                    </p>
+                                    <p class="small">
+                                        Proyecto Final de Ciclo para el Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web.
+                                    </p>
+                                    <p class="text-end">
+                                        José Vicente Falcó Milla
                                     </p>
                                 </div>
                             </div>
