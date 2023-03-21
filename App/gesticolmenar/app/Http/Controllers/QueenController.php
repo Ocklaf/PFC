@@ -74,7 +74,7 @@ class QueenController extends Controller
         $queen->end_date = $request->end_date;
         $queen->save();
 
-        return redirect()->route('apiaries.index')->withSuccess('Reina creada correctamente');
+        return redirect()->route('queens.index')->withSuccess('Reina creada correctamente');
     }
 
     /**
@@ -106,6 +106,10 @@ class QueenController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $queen = Queen::findOrFail($id);
+
+        $queen->delete();
+
+        return redirect()->route('queens.index')->withSuccess('Reina eliminada correctamente');
     }
 }

@@ -34,6 +34,7 @@ class ProductController extends Controller
         $product->beehive_id = $request->beehive_id;
         $product->type = $request->type;
         $product->grams = $request->grams;
+        $product->year = date('Y');
         $product->save();
 
         return redirect()->back()->withSuccess('Producto añadido correctamente');
@@ -66,6 +67,7 @@ class ProductController extends Controller
         $product->beehive_id = $request->beehive_id;
         $product->type = $request->type;
         $product->grams = $request->grams;
+        $product->year = date('Y');
         $product->save();
 
         return redirect()->back()->withSuccess('Producto actualizado correctamente');

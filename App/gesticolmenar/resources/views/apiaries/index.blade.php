@@ -53,24 +53,86 @@
                         </tbody>
                     </table>
 
-                    <div class="row text-center mt-5">
-                        <div class="col-4">
-                            <a class="btn btn-primary" href="{{ route('charts.honeyApiaries')}}">Gráfica Miel</a>
-                        </div>
-                        <div class="col-4 ">
-                            <a class="btn btn-primary" href="{{ route('charts.pollenApiaries')}}">Gráfica Polen</a>
-                        </div>
-                        <div class="col-4 ">
-                            <a class="btn btn-primary" href="{{ route('charts.apitoxineApiaries')}}">Gráfica Apitoxina</a>
+                    <div class="row text-center mt-5 d-flex justify-content-start">
+                        <div class="col-lg-4 col">
+                            <form action="{{ route('charts.honeyApiaries') }}" method="POST">
+                                @csrf
+                                @method('GET')
+                                <div class="row">
+                                    <div class="col">
+                                        <select class="form-select" name="year" id="year">
+                                            @foreach ($years as $year)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col text-start">
+                                        <button type="submit" class="btn btn-primary">Gráfica Miel</button>
+                                    </div>
+                                    <div class="col text-start">
+                                        <a class="btn btn-primary"
+                                            href="{{ route('charts.totalHoney', json_encode($years)) }}">Totales Miel</a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
+                    <div class="row text-center mt-5 d-flex justify-content-start">
+                        <div class="col-lg-4 col">
+                            <form action="{{ route('charts.pollenApiaries') }}" method="POST">
+                                @csrf
+                                @method('GET')
+                                <div class="row">
+                                    <div class="col">
+                                        <select class="form-select" name="year" id="year">
+                                            @foreach ($years as $year)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col text-start">
+                                        <button type="submit" class="btn btn-primary">Gráfica Polen</button>
+                                    </div>
+                                    <div class="col text-start">
+                                        <a class="btn btn-primary"
+                                            href="{{ route('charts.totalPollen', json_encode($years)) }}">Totales Polen</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-5 d-flex justify-content-start mb-5">
+                        <div class="col-lg-4 col">
+                            <form action="{{ route('charts.apitoxineApiaries') }}" method="POST">
+                                @csrf
+                                @method('GET')
+                                <div class="row">
+                                    <div class="col">
+                                        <select class="form-select" name="year" id="year">
+                                            @foreach ($years as $year)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col text-start">
+                                        <button type="submit" class="btn btn-primary">Gráfica Apitoxina</button>
+                                    </div>
+                                    <div class="col text-start">
+                                        <a class="btn btn-primary"
+                                            href="{{ route('charts.totalHoney', json_encode($years)) }}">Totales Apitoxina</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 @else
                     <div class="alert alert-info text-center mt-5">
                         No hay colmenares registrados
                     </div>
                 @endif
-                
+
             </div>
         </div>
 

@@ -29,23 +29,33 @@ class ApiaryController extends Controller
             // $honey = Product::where('beehive_id', $apiary->id)->where('type', 'Miel')->sum('grams');
             // dd($honey);
 
-            $beehives = Beehive::where('apiary_id', $apiary->id)->get();
-            $honey = 0;
-            $pollen = 0;
-            $apitoxine = 0;
+            // $beehives = Beehive::where('apiary_id', $apiary->id)->get();
+            // $honey = 0;
+            // $pollen = 0;
+            // $apitoxine = 0;
 
-            foreach ($beehives as $beehive) {
-                $honey += Product::where('beehive_id', $beehive->id)->where('type', 'Miel')->sum('grams');
-                $pollen += Product::where('beehive_id', $beehive->id)->where('type', 'Polen')->sum('grams');
-                $apitoxine += Product::where('beehive_id', $beehive->id)->where('type', 'Apitoxina')->sum('grams');
-            }
-            array_push($honeyEachApiary, $honey);
-            array_push($pollenEachApiary, $pollen);
-            array_push($apitoxineEachApiary, $apitoxine);
+            // foreach ($beehives as $beehive) {
+            //     $honey += Product::where('beehive_id', $beehive->id)->where('type', 'Miel')->sum('grams');
+            //     $pollen += Product::where('beehive_id', $beehive->id)->where('type', 'Polen')->sum('grams');
+            //     $apitoxine += Product::where('beehive_id', $beehive->id)->where('type', 'Apitoxina')->sum('grams');
+            // }
+            // array_push($honeyEachApiary, $honey);
+            // array_push($pollenEachApiary, $pollen);
+            // array_push($apitoxineEachApiary, $apitoxine);
         }
         //dd($honeyEachApiary, $pollenEachApiary, $apitoxineEachApiary);
 
-        return view('apiaries.index', compact('apiaries'));
+        $minYears = Product::where('user_id', $user)->min('year');
+
+        $years = [];
+
+        for ($i = date('Y'); $i >= $minYears; $i--) {
+            array_push($years, $i);
+        }
+
+        // dd($years);
+
+        return view('apiaries.index', compact('apiaries', 'years'));
     }
 
     /**

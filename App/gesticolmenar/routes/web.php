@@ -38,8 +38,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('disesases/addDiseaseToBeehive/{beehive}', [DiseaseController::class, 'addDiseaseToBeehive'])->name('diseases.addDiseaseToBeehive');
 
     Route::get('charts/honeyApiaries', [ChartController::class, 'honeyApiaries'])->name('charts.honeyApiaries');
+    Route::get('charts/totalHoney/{years}', [ChartController::class, 'totalHoney'])->name('charts.totalHoney');
     Route::get('charts/pollenApiaries', [ChartController::class, 'pollenApiaries'])->name('charts.pollenApiaries');
+    Route::get('charts/totalPollen/{years}', [ChartController::class, 'totalPollen'])->name('charts.totalPollen');
     Route::get('charts/apitoxineApiaries', [ChartController::class, 'apitoxineApiaries'])->name('charts.apitoxineApiaries');
+
 
     Route::resource('apiaries', ApiaryController::class);
     Route::resource('beehives', BeehiveController::class);

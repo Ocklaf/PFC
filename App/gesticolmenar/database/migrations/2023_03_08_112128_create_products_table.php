@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('beehive_id');
             $table->string('type');
             $table->integer('grams');
+            $table->string('year');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('beehive_id')->references('id')->on('beehives')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

@@ -13,7 +13,8 @@ class ChartController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function honeyApiaries() {
+    public function honeyApiaries(Request $request) {
+        // dd($request->year);
         $honeyEachApiary = [];
         $apiaryPlaceName = [];
         $inKg = 1000;
@@ -28,7 +29,7 @@ class ChartController extends Controller {
             $honey = 0;
 
             foreach ($beehives as $beehive) {
-                $honey += Product::where('beehive_id', $beehive->id)->where('type', 'Miel')->sum('grams')/$inKg;
+                $honey += Product::where('beehive_id', $beehive->id)->where('type', 'Miel')->where('year', $request->year)->sum('grams') / $inKg;
             }
 
             array_push($honeyEachApiary, $honey);
@@ -41,7 +42,36 @@ class ChartController extends Controller {
         return view('charts.honey', compact('honeyApiaryChart'));
     }
 
-    public function pollenApiaries() {
+    public function totalHoney($years) {
+
+        $years = array_reverse(json_decode($years));
+
+        $honeyEachYear = [];
+        $inKg = 1000;
+        $user = auth()->user()->id;
+        $apiaries = Apiary::where('user_id', $user)->get();
+
+        foreach ($apiaries as $apiary) {
+
+            $beehives = Beehive::where('apiary_id', $apiary->id)->get();
+
+            foreach ($years as $year) {
+                $honey = 0;
+                foreach ($beehives as $beehive) {
+                    $honey += Product::where('beehive_id', $beehive->id)->where('type', 'Miel')->where('year', $year)->sum('grams') / $inKg;
+                }
+                array_push($honeyEachYear, $honey);
+            }
+        }
+
+        $honeyApiaryChart = new AppChart();
+        $honeyApiaryChart->labels($years);
+        $honeyApiaryChart->dataset('Miel', 'bar', $honeyEachYear)->color('rgb(161, 90, 40)')->backgroundcolor('rgb(193, 148 , 0)');
+
+        return view('charts.totalHoney', compact('honeyApiaryChart'));
+    }
+
+    public function pollenApiaries(Request $request) {
         $pollenEachApiary = [];
         $apiaryPlaceName = [];
         $inKg = 1000;
@@ -56,7 +86,7 @@ class ChartController extends Controller {
             $pollen = 0;
 
             foreach ($beehives as $beehive) {
-                $pollen += Product::where('beehive_id', $beehive->id)->where('type', 'Polen')->sum('grams')/$inKg;
+                $pollen += Product::where('beehive_id', $beehive->id)->where('type', 'Polen')->where('year', $request->year)->sum('grams') / $inKg;
             }
 
             array_push($pollenEachApiary, $pollen);
@@ -69,7 +99,38 @@ class ChartController extends Controller {
         return view('charts.pollen', compact('pollenApiaryChart'));
     }
 
-    public function apitoxineApiaries() {
+    public function totalPollen($years) {
+
+        $years = array_reverse(json_decode($years));
+
+        $pollenEachYear = [];
+        $inKg = 1000;
+        $user = auth()->user()->id;
+        $apiaries = Apiary::where('user_id', $user)->get();
+
+        foreach ($apiaries as $apiary) {
+
+            $beehives = Beehive::where('apiary_id', $apiary->id)->get();
+
+            foreach ($years as $year) {
+                $pollen = 0;
+                foreach ($beehives as $beehive) {
+                    $pollen += Product::where('beehive_id', $beehive->id)->where('type', 'Polen')->where('year', $year)->sum('grams') / $inKg;
+                }
+                array_push($pollenEachYear, $pollen);
+            }
+        }
+
+        //dd($pollenEachYear);
+
+        $pollenApiaryChart = new AppChart();
+        $pollenApiaryChart->labels($years);
+        $pollenApiaryChart->dataset('Polen', 'bar', $pollenEachYear)->color('rgb(161, 90, 40)')->backgroundcolor('rgb(193, 148 , 0)');
+
+        return view('charts.totalPollen', compact('pollenApiaryChart'));
+    }
+
+    public function apitoxineApiaries(Request $request) {
         $apitoxineEachApiary = [];
         $apiaryPlaceName = [];
         $user = auth()->user()->id;
@@ -83,7 +144,7 @@ class ChartController extends Controller {
             $pollen = 0;
 
             foreach ($beehives as $beehive) {
-                $pollen += Product::where('beehive_id', $beehive->id)->where('type', 'Apitoxina')->sum('grams');
+                $pollen += Product::where('beehive_id', $beehive->id)->where('type', 'Apitoxina')->where('year', $request->year)->sum('grams');
             }
 
             array_push($apitoxineEachApiary, $pollen);

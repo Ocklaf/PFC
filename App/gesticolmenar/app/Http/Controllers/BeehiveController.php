@@ -78,7 +78,7 @@ class BeehiveController extends Controller
         $beehive = Beehive::findOrFail($id);
         $beehive->place_name = Place::where('id', $beehive->apiary_id)->pluck('name')->first();
         $queen = Queen::where('id', $beehive->queen_id)->first();
-        $products = Product::where('beehive_id', $id)->get();
+        $products = Product::where('beehive_id', $id)->where('year', date('Y'))->get();
         $diseases = Disease::where('beehive_id', $id)->get();
 
         return view('beehives.show', compact('beehive', 'queen', 'products', 'diseases'));
