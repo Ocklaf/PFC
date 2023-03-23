@@ -121,7 +121,7 @@
                                     </div>
                                     <div class="col text-start">
                                         <a class="btn btn-primary"
-                                            href="{{ route('charts.totalHoney', json_encode($years)) }}">Totales Apitoxina</a>
+                                            href="{{ route('charts.totalApitoxine', json_encode($years)) }}">Totales Apitoxina</a>
                                     </div>
                                 </div>
                             </form>

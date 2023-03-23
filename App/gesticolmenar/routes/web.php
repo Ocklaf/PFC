@@ -42,6 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('charts/pollenApiaries', [ChartController::class, 'pollenApiaries'])->name('charts.pollenApiaries');
     Route::get('charts/totalPollen/{years}', [ChartController::class, 'totalPollen'])->name('charts.totalPollen');
     Route::get('charts/apitoxineApiaries', [ChartController::class, 'apitoxineApiaries'])->name('charts.apitoxineApiaries');
+    Route::get('charts/totalApitoxine/{years}', [ChartController::class, 'totalApitoxine'])->name('charts.totalApitoxine');
+
 
 
     Route::resource('apiaries', ApiaryController::class);
