@@ -16,9 +16,12 @@
                 <h1 class="text-center">Colmenares</h1>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-12">
                 <a class="btn btn-primary" href="{{ route('apiaries.create') }}">Añadir Colmenar</a>
+                <a class="btn btn-primary" href="{{ route('apiaries.apiariesTasks') }}">
+                    Colmenares con tareas <span class="badge text-bg-danger ms-2">{{ $apiariesTasks }}</span>
+                  </a>
             </div>
         </div>
         <div class="row">

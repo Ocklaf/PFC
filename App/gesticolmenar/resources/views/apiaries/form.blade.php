@@ -27,7 +27,7 @@
         @endif
 
         <div class="row d-flex justify-content-center mt-5">
-            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6 mb-5">
                 <div class="card" style="border-radius: 15px;">
                     <div class="card-body p-4">
                         @if ($path === 'apiaries.update')

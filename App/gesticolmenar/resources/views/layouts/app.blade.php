@@ -40,13 +40,13 @@
 
     @yield('content')
 
-    <footer class="container-fluid text-center icons-copyright fixed-bottom" style="height: 110px">
-        <div class="p-2 pb-0">
-            <section class="mb-2">
-                <a class="btn text-white btn-floating m-1" style="background-color: #0082ca;" target="_blank"
+    <footer class="container-fluid text-center icons-copyright fixed-bottom" style="height: 80px">
+        <div class="p-1 pb-0">
+            <section class="">
+                <a class="btn text-white btn-floating m-1" style="background-color: #0082ca; font-size: 12px" target="_blank"
                     href="https://www.linkedin.com/in/josevicentefalco/" role="button"><i
                         class="bi bi-linkedin"></i></a>
-                <a class="btn text-white btn-floating m-1" style="background-color: #333333;" target="_blank"
+                <a class="btn text-white btn-floating m-1" style="background-color: #333333; font-size: 12px" target="_blank"
                     href="https://github.com/Ocklaf" role="button"><i class="bi bi-github"></i></a>
             </section>
         </div>

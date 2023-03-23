@@ -7,28 +7,25 @@ use App\Models\Apiary;
 use App\Models\Place;
 use App\Models\Beehive;
 use App\Models\Product;
+use App\Models\Disease;
 use App\Http\Requests\ApiaryRequest;
 
-class ApiaryController extends Controller
-{
+class ApiaryController extends Controller {
 
-    public function getUser()
-    {
+    public function getUser() {
         return auth()->user()->id;
     }
 
-    public function getApiary($id)
-    {
+    public function getApiary($id) {
         return Apiary::findOrFail($id);
     }
 
-    public function years()
-    {
+    public function years() {
         $user = $this->getUser();
         $years = [];
         $minYears = Product::where('user_id', $user)->min('year');
-        
-        
+
+
         for ($i = date('Y'); $i >= $minYears; $i--) {
             array_push($years, $i);
         }
@@ -36,18 +33,36 @@ class ApiaryController extends Controller
         return $years;
     }
 
-    public function freePlaces()
-    {
+    public function freePlaces() {
         return Place::where('user_id', $this->getUser())
             ->whereNotIn('id', function ($query) {
                 $query->select('place_id')->from('apiaries');
             })->get();
     }
 
-    public function index()
-    {
+    public function apiariesTasks() {
+
+        $user = $this->getUser();
+        $apiariesTasks = Apiary::where('user_id', $user)->where('next_visit', '>=', date('Y-m-d'))->get();
+        $beehivesWithDiseases = Beehive::whereIn('id', function ($query) {
+            $query->select('beehive_id')->from('diseases')->where('treatment_repeat_date', '>=', date('Y-m-d'));
+        })->get();
+
+        // $diseases = Disease::whereIn('id', $beehivesWithDiseases->beehive_id)->get();
+
+        // dd($diseases);
+
+        foreach ($apiariesTasks as $apiaryTask) {
+            $apiaryTask->place_name = Place::where('id', $apiaryTask->place_id)->pluck('name')->first();
+        }
+
+        return view('apiaries.tasks', compact('apiariesTasks', 'beehivesWithDiseases'));
+    }
+
+    public function index() {
         $user = $this->getUser();
         $apiaries = Apiary::where('user_id', $user)->get();
+        $apiariesTasks = Apiary::where('user_id', $user)->where('next_visit', '>=', date('Y-m-d'))->get()->count();
 
         foreach ($apiaries as $apiary) {
             $apiary->place_name = Place::where('id', $apiary->place_id)->pluck('name')->first();
@@ -56,11 +71,10 @@ class ApiaryController extends Controller
 
         $years = $this->years();
 
-        return view('apiaries.index', compact('apiaries', 'years'));
+        return view('apiaries.index', compact('apiaries', 'years', 'apiariesTasks'));
     }
 
-    public function create()
-    {
+    public function create() {
         $apiary = new Apiary();
         $path = 'apiaries.store';
         $freePlaces = $this->freePlaces();
@@ -68,58 +82,56 @@ class ApiaryController extends Controller
         return view('apiaries.form', compact('apiary', 'path', 'freePlaces'));
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $apiary = new Apiary();
-        $apiary->user_id = auth()->user()->id;
+        $apiary->user_id = $this->getUser();
         $apiary->place_id = $request->place_id;
         $apiary->beehives_quantity = 0;
+        $apiary->last_visit = $request->last_visit;
+        $apiary->next_visit = $request->next_visit;
+        $request->clear_apiary == 'on' ? $apiary->clear_apiary = true : $apiary->clear_apiary = false;
+        $request->refill_water == 'on' ? $apiary->refill_water = true : $apiary->refill_water = false;
+        $request->collect_honey == 'on' ? $apiary->collect_honey = true : $apiary->collect_honey = false;
+        $request->collect_pollen == 'on' ? $apiary->collect_pollen = true : $apiary->collect_pollen = false;
+        $request->collect_apitoxine == 'on' ? $apiary->collect_apitoxine = true : $apiary->collect_apitoxine = false;
+        $request->food == 'on' ? $apiary->food = true : $apiary->food = false;
+        $apiary->others = $request->others;
         $apiary->save();
 
         return redirect()->route('apiaries.index')->withSuccess('Colmenar creado correctamente');
     }
 
-    public function edit(string $id)
-    {
+    public function edit(string $id) {
         $apiary = $this->getApiary($id);
         $path = 'apiaries.update';
         $freePlaces = $this->freePlaces();
         $freePlaces->prepend(Place::where('id', $apiary->place_id)->get()->first());
 
-       // dd($freePlaces);
-
         return view('apiaries.form', compact('apiary', 'path', 'freePlaces'));
     }
 
-    public function update(ApiaryRequest $request, string $id)
-    {
-//dd('update');
+    public function update(ApiaryRequest $request, string $id) {
+
         $apiary = $this->getApiary($id);
         $apiary->place_id = $request->place_id;
         $apiary->last_visit = $request->last_visit;
         $apiary->next_visit = $request->next_visit;
-
         $request->clear_apiary == 'on' ? $apiary->clear_apiary = true : $apiary->clear_apiary = false;
-
         $request->refill_water == 'on' ? $apiary->refill_water = true : $apiary->refill_water = false;
-
         $request->collect_honey == 'on' ? $apiary->collect_honey = true : $apiary->collect_honey = false;
-
         $request->collect_pollen == 'on' ? $apiary->collect_pollen = true : $apiary->collect_pollen = false;
-
         $request->collect_apitoxine == 'on' ? $apiary->collect_apitoxine = true : $apiary->collect_apitoxine = false;
-
         $request->food == 'on' ? $apiary->food = true : $apiary->food = false;
-
-        //dd($request->others);
         $apiary->others = $request->others;
         $apiary->save();
 
         return redirect()->route('apiaries.index')->withSuccess('Colmenar actualizado correctamente');
     }
 
-    public function destroy(string $id)
-    {
+    public function show(string $id) {
+    }
+
+    public function destroy(string $id) {
 
         $apiary = $this->getApiary($id);
         $apiary->delete();

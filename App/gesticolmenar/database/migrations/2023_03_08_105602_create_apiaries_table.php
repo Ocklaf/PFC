@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('place_id')->unique();
-            $table->date('last_visit');
-            $table->date('next_visit');
+            $table->date('last_visit')->nullable();
+            $table->date('next_visit')->nullable();
             $table->integer('beehives_quantity');
             $table->boolean('clear_apiary');
             $table->boolean('refill_water');

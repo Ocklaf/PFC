@@ -22,8 +22,6 @@ class ApiaryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'last_visit' => ['required', 'date'],
-            'next_visit' => ['required', 'date'],
             'others' => ['nullable', 'string', 'max:1000'],
             'place_id' => ['required', 'integer', 'exists:places,id'],
         ];
@@ -37,10 +35,6 @@ class ApiaryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'last_visit.required' => 'La fecha de la última visita es obligatoria',
-            'last_visit.date' => 'La fecha de la última visita debe ser una fecha válida',
-            'next_visit.required' => 'La fecha de la próxima visita es obligatoria',
-            'next_visit.date' => 'La fecha de la próxima visita debe ser una fecha válida',
             'others.string' => 'El campo otros debe ser un texto',
             'others.max' => 'El campo otros no puede tener más de 1000 caracteres',
             'place_id.required' => 'El campo lugar es obligatorio',
