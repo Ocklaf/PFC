@@ -22,7 +22,9 @@ class BeehiveRequest extends FormRequest {
 
 
         return [
-            'user_code' => ['required', 'string', Rule::unique('beehives')->ignore($this->route('beehive'))],
+            'user_code' => ['required', 'string', Rule::unique('beehives')->ignore($this->route('beehive'))->where(function ($query) {
+                return $query->where('user_id', auth()->user()->id);
+            })],
             'type' => 'required|string',
             'honey_frames' => 'required|integer',
             'pollen_frames' => 'required|integer',

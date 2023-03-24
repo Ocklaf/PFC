@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('apiary_id');
             $table->unsignedBigInteger('queen_id');
-            $table->string('user_code')->unique();
+            $table->string('user_code');
             $table->string('type');
             $table->integer('honey_frames');
             $table->integer('pollen_frames');

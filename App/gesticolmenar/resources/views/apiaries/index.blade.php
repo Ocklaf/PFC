@@ -19,9 +19,11 @@
         <div class="row mb-4">
             <div class="col-12">
                 <a class="btn btn-primary" href="{{ route('apiaries.create') }}">Añadir Colmenar</a>
-                <a class="btn btn-primary" href="{{ route('apiaries.apiariesTasks') }}">
-                    Colmenares con tareas <span class="badge text-bg-danger ms-2">{{ $apiariesTasks }}</span>
-                  </a>
+                @if ($totalTasks)
+                    <a class="btn btn-primary" href="{{ route('apiaries.apiariesTasks') }}">
+                        Notificaciones <span class="badge text-bg-danger ms-2">{{ $totalTasks }}</span>
+                    </a>
+                @endif
             </div>
         </div>
         <div class="row">
@@ -124,7 +126,8 @@
                                     </div>
                                     <div class="col text-start">
                                         <a class="btn btn-primary"
-                                            href="{{ route('charts.totalApitoxine', json_encode($years)) }}">Totales Apitoxina</a>
+                                            href="{{ route('charts.totalApitoxine', json_encode($years)) }}">Totales
+                                            Apitoxina</a>
                                     </div>
                                 </div>
                             </form>

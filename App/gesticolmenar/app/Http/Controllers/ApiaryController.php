@@ -25,9 +25,12 @@ class ApiaryController extends Controller {
         $years = [];
         $minYears = Product::where('user_id', $user)->min('year');
 
-
-        for ($i = date('Y'); $i >= $minYears; $i--) {
-            array_push($years, $i);
+        if ($minYears) {
+            for ($i = date('Y'); $i >= $minYears; $i--) {
+                array_push($years, $i);
+            }
+        } else {
+            array_push($years, date('Y'));
         }
 
         return $years;
@@ -48,6 +51,18 @@ class ApiaryController extends Controller {
             $query->select('beehive_id')->from('diseases')->where('treatment_repeat_date', '>=', date('Y-m-d'));
         })->get();
 
+        foreach ($beehivesWithDiseases as $beehiveDisease) {
+            $diseases = Disease::where('beehive_id', $beehiveDisease->id)->get();
+
+
+            $beehiveDisease->diseases = $diseases;
+            // $beehiveDisease->treatment_start_date = $disease->treatment_start_date;
+            // $beehiveDisease->treatment_repeat_date = $disease->treatment_repeat_date;
+            $beehiveDisease->place_name = Place::where('id', $beehiveDisease->apiary_id)->pluck('name')->first();
+            // dd($disease);
+
+        }
+
         // $diseases = Disease::whereIn('id', $beehivesWithDiseases->beehive_id)->get();
 
         // dd($diseases);
@@ -63,6 +78,11 @@ class ApiaryController extends Controller {
         $user = $this->getUser();
         $apiaries = Apiary::where('user_id', $user)->get();
         $apiariesTasks = Apiary::where('user_id', $user)->where('next_visit', '>=', date('Y-m-d'))->get()->count();
+        $beehivesWithDiseases = Beehive::whereIn('id', function ($query) {
+            $query->select('beehive_id')->from('diseases')->where('treatment_repeat_date', '>=', date('Y-m-d'));
+        })->count();
+
+        $totalTasks = $beehivesWithDiseases + $apiariesTasks;
 
         foreach ($apiaries as $apiary) {
             $apiary->place_name = Place::where('id', $apiary->place_id)->pluck('name')->first();
@@ -71,7 +91,7 @@ class ApiaryController extends Controller {
 
         $years = $this->years();
 
-        return view('apiaries.index', compact('apiaries', 'years', 'apiariesTasks'));
+        return view('apiaries.index', compact('apiaries', 'years', 'totalTasks'));
     }
 
     public function create() {
