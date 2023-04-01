@@ -54,7 +54,7 @@
                         <div class="card" style="width: 19rem;">
                             <div class="card-body">
                                 <h5 class="card-title d-flex justify-content-between">Colmena: {{ $beehiveWithDisease->user_code }} <a
-                                  href="{{ route('apiaries.edit', $apiaryTask->id) }}"
+                                  href="{{ route('beehives.show', $beehiveWithDisease->id) }}"
                                   class="btn btn-primary card-link"><i class="bi bi-pencil"></i></a></h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Colmenar: {{ $beehiveWithDisease->place_name }} </h6>
                                 <hr>

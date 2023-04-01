@@ -34,9 +34,15 @@
                     </thead>
                     <tbody>
                         @foreach ($beehives as $beehive)
-                            @if($beehive->diseases()->get()->count() > 0)
+                            @if($beehive->diseases()->get()->count() && $beehive->queen_change)
+                                <tr class="table-danger-both">
+                                    <td><i class="bi bi-heart-pulse me-2"></i>  <i class="fa-regular fa-chess-queen me-2"></i> {{ $beehive->user_code }}</td>
+                            @elseif($beehive->diseases()->get()->count())
                                 <tr class="table-danger">
-                                    <td><i class="bi bi-heart-pulse"></i> {{ $beehive->user_code }}</td>
+                                    <td><i class="bi bi-heart-pulse me-2"></i> {{ $beehive->user_code }}</td>
+                            @elseif($beehive->queen_change)
+                                <tr class="table-warning">
+                                    <td><i class="fa-regular fa-chess-queen me-2"></i>{{ $beehive->user_code }}</td>
                             @else
                             <tr>
                                 <td>{{ $beehive->user_code }} </td>

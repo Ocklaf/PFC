@@ -17,3 +17,8 @@
 .product-quantity {
   min-width: 120px;
 }
+
+/*Background disease + queen to change*/
+.table-danger-both {
+  background-color: #fd8d82;
+}

@@ -21,7 +21,7 @@
                 <a class="btn btn-primary" href="{{ route('apiaries.create') }}">Añadir Colmenar</a>
                 @if ($totalTasks)
                     <a class="btn btn-primary" href="{{ route('apiaries.apiariesTasks') }}">
-                        Notificaciones <span class="badge text-bg-danger ms-2">{{ $totalTasks }}</span>
+                        Tareas <span class="badge text-bg-danger ms-2">{{ $totalTasks }}</span>
                     </a>
                 @endif
             </div>

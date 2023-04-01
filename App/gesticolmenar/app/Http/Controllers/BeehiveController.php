@@ -17,6 +17,15 @@ class BeehiveController extends Controller
     public function beehivesApiary($apiary)
     {
         $beehives = Beehive::where('apiary_id', $apiary)->paginate(8);
+        $queensToChange = Queen::where('end_date', '=', date('Y'))->get();
+
+        foreach ($beehives as $beehive) {
+            foreach ($queensToChange as $queenToChange) {
+                if ($beehive->queen_id == $queenToChange->id) {
+                    $beehive->queen_change = true;
+                }
+            }
+        }
 
         return view('beehives.index', compact('beehives', 'apiary'));
     }
@@ -26,22 +35,13 @@ class BeehiveController extends Controller
         $beehive = new Beehive();
         $path = 'beehives.store';
         $user = auth()->user()->id;
-        $freeQueens = Queen::
-            where('user_id', $user)
+        $freeQueens = Queen::where('user_id', $user)
             ->whereNotIn('id', function ($query) {
                 $query->select('queen_id')->from('beehives');
             })->get();
         $apiaries = [];
 
         return view('beehives.form', compact('beehive', 'path', 'freeQueens', 'apiary', 'apiaries'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -60,7 +60,9 @@ class BeehiveController extends Controller
         $beehive->apiary_id = $request->apiary_id;
         $beehive->save();
 
-        return redirect()->route('beehives.beehivesApiary', $beehive->apiary_id)->withSuccess('Colmena creada correctamente');
+        return redirect()
+            ->route('beehives.beehivesApiary', $beehive->apiary_id)
+            ->withSuccess('Colmena creada correctamente');
     }
 
     /**
@@ -87,11 +89,10 @@ class BeehiveController extends Controller
         $user = auth()->user()->id;
         $actualQueen = Queen::where('id', $beehive->queen_id)->get();
 
-        $freeQueens = Queen::
-        where('user_id', $user)
-        ->whereNotIn('id', function ($query) {
-            $query->select('queen_id')->from('beehives');
-        })->get();
+        $freeQueens = Queen::where('user_id', $user)
+            ->whereNotIn('id', function ($query) {
+                $query->select('queen_id')->from('beehives');
+            })->get();
 
         $freeQueens->prepend($actualQueen->first());
 
@@ -121,7 +122,9 @@ class BeehiveController extends Controller
         $beehive->queen_id = $request->queen_id;
         $beehive->save();
 
-        return redirect()->route('beehives.beehivesApiary', $beehive->apiary_id)->withSuccess('Colmena actualizada correctamente');
+        return redirect()
+            ->route('beehives.beehivesApiary', $beehive->apiary_id)
+            ->withSuccess('Colmena actualizada correctamente');
     }
 
     /**
@@ -130,9 +133,11 @@ class BeehiveController extends Controller
     public function destroy(string $id)
     {
         $beehive = Beehive::findOrFail($id);
-        
+
         $beehive->delete();
 
-        return redirect()->route('beehives.beehivesApiary', $beehive->apiary_id)->withSuccess('Colmena eliminada correctamente');
+        return redirect()
+            ->route('beehives.beehivesApiary', $beehive->apiary_id)
+            ->withSuccess('Colmena eliminada correctamente');
     }
 }

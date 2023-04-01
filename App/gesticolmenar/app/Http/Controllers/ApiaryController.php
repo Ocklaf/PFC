@@ -10,17 +10,22 @@ use App\Models\Product;
 use App\Models\Disease;
 use App\Http\Requests\ApiaryRequest;
 
-class ApiaryController extends Controller {
+class ApiaryController extends Controller
+{
 
-    public function getUser() {
+    public function getUser()
+    {
         return auth()->user()->id;
     }
 
-    public function getApiary($id) {
+    public function getApiary($id)
+    {
         return Apiary::findOrFail($id);
     }
 
-    public function years() {
+    public function years()
+    {
+
         $user = $this->getUser();
         $years = [];
         $minYears = Product::where('user_id', $user)->min('year');
@@ -36,14 +41,17 @@ class ApiaryController extends Controller {
         return $years;
     }
 
-    public function freePlaces() {
+    public function freePlaces()
+    {
+    
         return Place::where('user_id', $this->getUser())
             ->whereNotIn('id', function ($query) {
                 $query->select('place_id')->from('apiaries');
             })->get();
     }
 
-    public function apiariesTasks() {
+    public function apiariesTasks()
+    {
 
         $user = $this->getUser();
         $apiariesTasks = Apiary::where('user_id', $user)->where('next_visit', '>=', date('Y-m-d'))->get();
@@ -53,19 +61,9 @@ class ApiaryController extends Controller {
 
         foreach ($beehivesWithDiseases as $beehiveDisease) {
             $diseases = Disease::where('beehive_id', $beehiveDisease->id)->get();
-
-
             $beehiveDisease->diseases = $diseases;
-            // $beehiveDisease->treatment_start_date = $disease->treatment_start_date;
-            // $beehiveDisease->treatment_repeat_date = $disease->treatment_repeat_date;
             $beehiveDisease->place_name = Place::where('id', $beehiveDisease->apiary_id)->pluck('name')->first();
-            // dd($disease);
-
         }
-
-        // $diseases = Disease::whereIn('id', $beehivesWithDiseases->beehive_id)->get();
-
-        // dd($diseases);
 
         foreach ($apiariesTasks as $apiaryTask) {
             $apiaryTask->place_name = Place::where('id', $apiaryTask->place_id)->pluck('name')->first();
@@ -74,7 +72,9 @@ class ApiaryController extends Controller {
         return view('apiaries.tasks', compact('apiariesTasks', 'beehivesWithDiseases'));
     }
 
-    public function index() {
+    public function index()
+    {
+
         $user = $this->getUser();
         $apiaries = Apiary::where('user_id', $user)->get();
         $apiariesTasks = Apiary::where('user_id', $user)->where('next_visit', '>=', date('Y-m-d'))->get()->count();
@@ -94,7 +94,9 @@ class ApiaryController extends Controller {
         return view('apiaries.index', compact('apiaries', 'years', 'totalTasks'));
     }
 
-    public function create() {
+    public function create()
+    {
+
         $apiary = new Apiary();
         $path = 'apiaries.store';
         $freePlaces = $this->freePlaces();
@@ -102,7 +104,9 @@ class ApiaryController extends Controller {
         return view('apiaries.form', compact('apiary', 'path', 'freePlaces'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
+
         $apiary = new Apiary();
         $apiary->user_id = $this->getUser();
         $apiary->place_id = $request->place_id;
@@ -121,7 +125,9 @@ class ApiaryController extends Controller {
         return redirect()->route('apiaries.index')->withSuccess('Colmenar creado correctamente');
     }
 
-    public function edit(string $id) {
+    public function edit(string $id)
+    {
+
         $apiary = $this->getApiary($id);
         $path = 'apiaries.update';
         $freePlaces = $this->freePlaces();
@@ -130,7 +136,8 @@ class ApiaryController extends Controller {
         return view('apiaries.form', compact('apiary', 'path', 'freePlaces'));
     }
 
-    public function update(ApiaryRequest $request, string $id) {
+    public function update(ApiaryRequest $request, string $id)
+    {
 
         $apiary = $this->getApiary($id);
         $apiary->place_id = $request->place_id;
@@ -148,10 +155,8 @@ class ApiaryController extends Controller {
         return redirect()->route('apiaries.index')->withSuccess('Colmenar actualizado correctamente');
     }
 
-    public function show(string $id) {
-    }
-
-    public function destroy(string $id) {
+    public function destroy(string $id)
+    {
 
         $apiary = $this->getApiary($id);
         $apiary->delete();

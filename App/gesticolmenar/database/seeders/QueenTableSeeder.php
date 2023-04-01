@@ -46,7 +46,7 @@ class QueenTableSeeder extends Seeder {
             $queen->race = $faker->randomElement(['Ibérica', 'Italiana', 'Europea', 'Cárnica', 'Africana']);
             $queen->color = $faker->randomElement(['Azul', 'Blanco', 'Amarillo', 'Rojo', 'Verde']);
             $queen->start_date = getYear($queen->color);
-            $queen->end_date = $queen->start_date + 5;
+            $queen->end_date = $queen->start_date + 4;
             $queen->save();
         }
     }
