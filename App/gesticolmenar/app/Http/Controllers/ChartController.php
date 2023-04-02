@@ -88,7 +88,6 @@ class ChartController extends Controller
     public function getTotalProductEachYear($years, $product, $weightConvert)
     {
         $eachYear = [];
-        $years = array_reverse(json_decode($years));
         $apiaries = $this->getApiaries();
 
         foreach ($years as $year) {
@@ -105,6 +104,11 @@ class ChartController extends Controller
         return $eachYear;
     }
 
+    public function getYearsInRevesedArray($years)
+    {
+        return array_reverse(json_decode($years));
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -119,21 +123,8 @@ class ChartController extends Controller
 
     public function totalHoney($years)
     {
-        $years = array_reverse(json_decode($years));
-        $honeyEachYear = [];
-        $apiaries = $this->getApiaries();
-
-        foreach ($years as $year) {
-            $honey = 0;
-            foreach ($apiaries as $apiary) {
-                $beehives = $this->getBeehives($apiary->id);
-                foreach ($beehives as $beehive) {
-                    $honey += $this->getTotalProductYear($beehive->id, 'Miel', $year, 1000);
-                }
-            }
-            array_push($honeyEachYear, $honey);
-        }
-
+        $years = $this->getYearsInRevesedArray($years);
+        $honeyEachYear = $this->getTotalProductEachYear($years, 'Miel', 1000);
         $honeyApiaryChart = $this->getChart($years, 'Miel', $honeyEachYear);
 
         return view('charts.totalHoney', compact('honeyApiaryChart'));
@@ -150,21 +141,8 @@ class ChartController extends Controller
 
     public function totalPollen($years)
     {
-        $years = array_reverse(json_decode($years));
-        $pollenEachYear = [];
-        $apiaries = $this->getApiaries();
-
-        foreach ($years as $year) {
-            $pollen = 0;
-            foreach ($apiaries as $apiary) {
-                $beehives = $this->getBeehives($apiary->id);
-                foreach ($beehives as $beehive) {
-                    $pollen += $this->getTotalProductYear($beehive->id, 'Polen', $year, 1000);
-                }
-            }
-            array_push($pollenEachYear, $pollen);
-        }
-
+        $years = $this->getYearsInRevesedArray($years);
+        $pollenEachYear = $this->getTotalProductEachYear($years, 'Polen', 1000);
         $pollenApiaryChart = $this->getChart($years, 'Polen', $pollenEachYear);
 
         return view('charts.totalPollen', compact('pollenApiaryChart'));
@@ -181,21 +159,8 @@ class ChartController extends Controller
 
     public function totalApitoxine($years)
     {
-        $years = array_reverse(json_decode($years));
-        $apitoxineEachYear = [];
-        $apiaries = $this->getApiaries();
-
-        foreach ($years as $year) {
-            $apitoxine = 0;
-            foreach ($apiaries as $apiary) {
-                $beehives = $this->getBeehives($apiary->id);
-                foreach ($beehives as $beehive) {
-                    $apitoxine += $this->getTotalProductYear($beehive->id, 'Apitoxina', $year, 1);
-                }
-            }
-            array_push($apitoxineEachYear, $apitoxine);
-        }
-
+        $years = $this->getYearsInRevesedArray($years);
+        $apitoxineEachYear = $this->getTotalProductEachYear($years, 'Apitoxina', 1);
         $apitoxineApiaryChart = $this->getChart($years, 'Apitoxina', $apitoxineEachYear);
 
         return view('charts.totalApitoxine', compact('apitoxineApiaryChart'));

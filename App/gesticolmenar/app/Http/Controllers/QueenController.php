@@ -53,6 +53,9 @@ class QueenController extends Controller
         $queen->color = getColor(date('Y'));
         $queen->start_date = date('Y');
         $queen->end_date = date('Y') + 5;
+        $queen->is_inseminated = false;
+        $queen->is_zanganera = false;
+        $queen->is_new_blood = false;
 
         $path = 'queens.store';
         $races = ['Ibérica', 'Italiana', 'Europea', 'Cárnica', 'Africana'];
@@ -72,6 +75,9 @@ class QueenController extends Controller
         $queen->color = $request->color;
         $queen->start_date = $request->start_date;
         $queen->end_date = $request->end_date;
+        $request->is_inseminated == 'on' ? $queen->is_inseminated = true : $queen->is_inseminated = false;
+        $request->is_zanganera == 'on' ? $queen->is_zanganera = true : $queen->is_zanganera = false;        
+        $request->is_new_blood == 'on' ? $queen->is_new_blood = true : $queen->is_new_blood = false;
         $queen->save();
 
         return redirect()->route('queens.index')->withSuccess('Reina creada correctamente');
@@ -90,7 +96,11 @@ class QueenController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $queen = Queen::findOrFail($id);
+        $path = 'queens.update';
+        $races = ['Ibérica', 'Italiana', 'Europea', 'Cárnica', 'Africana'];
+
+        return view('queens.form', compact('queen', 'path', 'races'));
     }
 
     /**
@@ -98,7 +108,18 @@ class QueenController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $queen = Queen::findOrFail($id);
+        $queen->user_id = auth()->user()->id;
+        $queen->race = $request->race;
+        $queen->color = $request->color;
+        $queen->start_date = $request->start_date;
+        $queen->end_date = $request->end_date;
+        $request->is_inseminated == 'on' ? $queen->is_inseminated = true : $queen->is_inseminated = false;
+        $request->is_zanganera == 'on' ? $queen->is_zanganera = true : $queen->is_zanganera = false;
+        $request->is_new_blood == 'on' ? $queen->is_new_blood = true : $queen->is_new_blood = false;
+        $queen->save();
+
+        return redirect()->route('queens.index')->withSuccess('Reina editada correctamente');
     }
 
     /**

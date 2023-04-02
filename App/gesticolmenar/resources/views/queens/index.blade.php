@@ -43,6 +43,8 @@
                                 <td>{{ $queen->color }}</td>
                                 <td>{{ $queen->end_date }}</td>
                                 <td class="d-flex justify-content-evenly">
+                                    <a href="{{ route('queens.edit', $queen->id) }}" class="btn btn-primary"><i
+                                        class="bi bi-pencil"></i></a>
                                     <form action="{{ route('queens.destroy', $queen->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')

@@ -61,6 +61,33 @@
                                 @endif
                             </div>
 
+                            <div class="form-outline mb-1 mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" {{ old('is_inseminated', $queen->is_inseminated === 1 ? 'checked' : '')}} id="is_inseminated" name="is_inseminated">
+                                    <label class="form-check-label" for="is_inseminated">
+                                      Inseminada
+                                    </label>
+                                  </div>
+                            </div>
+
+                            <div class="form-outline mb-1 mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" {{ old('is_zanganera', $queen->is_zanganera === 1 ? 'checked' : '')}} id="is_zanganera" name="is_zanganera">
+                                    <label class="form-check-label" for="is_zanganera">
+                                      Zanganera
+                                    </label>
+                                  </div>
+                            </div>
+
+                            <div class="form-outline mb-1 mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" {{ old('is_new_blood', $queen->is_new_blood === 1 ? 'checked' : '')}} id="is_new_blood" name="is_new_blood">
+                                    <label class="form-check-label" for="is_new_blood">
+                                      Sangre nueva
+                                    </label>
+                                  </div>
+                            </div>
+
                             <div class="d-flex justify-content-evenly mt-4">
                                 @if ($path === 'queens.update')
                                     <button type="submit"

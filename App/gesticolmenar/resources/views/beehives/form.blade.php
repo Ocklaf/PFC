@@ -121,7 +121,7 @@
                                             class="btn btn-primary btn-block  gradient-custom text-white">Añadir</button>
                                     @endif
 
-                                    <a href="{{ route('beehives.beehivesApiary', $apiary) }}"
+                                    <a href="{{ route('beehives.beehivesApiary', $beehive->apiary_id) }}"
                                         class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
                                 </div>
                             @endif

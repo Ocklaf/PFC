@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('parcel');
             $table->string('postal_code');
             $table->boolean('has_water');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

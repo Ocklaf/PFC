@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('collect_apitoxine');
             $table->boolean('food');
             $table->text('others')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
