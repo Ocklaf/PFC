@@ -12,7 +12,6 @@ class AuthController extends Controller
 {
     public function register(AuthRequest $request)
     {
-
         $user = new User();
         $user->explotation_code = $request->explotation_code;
         $user->name = $request->name;
@@ -27,7 +26,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:100',
             'password' => 'required|string|min:6',

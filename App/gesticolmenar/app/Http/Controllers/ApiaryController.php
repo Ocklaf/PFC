@@ -81,7 +81,6 @@ class ApiaryController extends Controller
         $beehivesWithDiseases = Beehive::whereIn('id', function ($query) {
             $query->select('beehive_id')->from('diseases')->where('treatment_repeat_date', '>=', date('Y-m-d'));
         })->count();
-
         $totalTasks = $beehivesWithDiseases + $apiariesTasks;
 
         foreach ($apiaries as $apiary) {

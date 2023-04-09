@@ -97,7 +97,7 @@
                                         class="btn btn-primary btn-block  gradient-custom text-white">Añadir</button>
                                 @endif
 
-                                <a href="{{ route('apiaries.index') }}"
+                                <a href="{{ route('queens.index') }}"
                                     class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
                             </div>
                             

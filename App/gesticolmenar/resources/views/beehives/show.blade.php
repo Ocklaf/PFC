@@ -6,7 +6,7 @@
         $pollenId = null;
         $apitoxineId = null;
     @endphp
-    <div class="container-fluid py-5 h-100" style="margin-bottom: 100px">
+    <div class="container-fluid py-5 h-100" style="margin-bottom: 80px">
         @if (session('success'))
             <div class="row  d-flex justify-content-center mt-1">
                 <div class="alert alert-success text-center mb-3 col-6">
@@ -24,7 +24,7 @@
                                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                                 <i class="bi bi-archive" style="font-size: 4rem; color: #461400"></i>
                                 <h5 class="text-black mb-4 mt-2">Código: {{ $beehive->user_code }}</h5>
-                                <a href="{{ route('beehives.edit', $beehive) }}" class="btn btn-success"><i
+                                <a href="{{ route('beehives.edit', $beehive) }}" class="btn btn-primary"><i
                                         class="bi bi-pencil"></i></a>
                             </div>
 
@@ -40,7 +40,9 @@
                                         </div>
                                         <div class="col-12">
                                             <h6>Reina</h6>
-                                            <p class="text-muted">{{ $queen->race }}</p>
+                                            <p class="text-muted d-flex justify-content-between pe-5">{{ $queen->race }} 
+                                                <a href="{{ route('queens.edit', $beehive->queen_id) }}" class="btn btn-primary"><i
+                                                        class="bi bi-pencil"></i></a></p>
                                         </div>
                                         <div class="col-12">
                                             <h6>Cuadros de Miel</h6>

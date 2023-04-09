@@ -47,7 +47,7 @@ class QueenTableSeeder extends Seeder {
             $queen->color = $faker->randomElement(['Azul', 'Blanco', 'Amarillo', 'Rojo', 'Verde']);
             $queen->start_date = getYear($queen->color);
             $queen->end_date = $queen->start_date + 4; //Realidad es +5, pero por mostrar algunas con fecha de cambio
-            $queen->is_inseminated = $faker->boolean;
+            $queen->is_inseminated = 1;
             $queen->is_zanganera = $faker->boolean;
             $queen->is_new_blood = $faker->boolean;
             $queen->save();

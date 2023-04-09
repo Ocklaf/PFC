@@ -13,16 +13,37 @@ use App\Models\Disease;
 
 class BeehiveController extends Controller
 {
+    public function getBeehive($id)
+    {
+        return Beehive::findOrFail($id);
+    }
+
+    public function getUser()
+    {
+        return auth()->user()->id;
+    }
 
     public function beehivesApiary($apiary)
     {
         $beehives = Beehive::where('apiary_id', $apiary)->paginate(8);
         $queensToChange = Queen::where('end_date', '=', date('Y'))->get();
+        $queensNoInseminated = Queen::where('is_inseminated', '=', '0')->get();
+        $queensZanganera = Queen::where('is_zanganera', '=', '1')->get();
 
         foreach ($beehives as $beehive) {
             foreach ($queensToChange as $queenToChange) {
                 if ($beehive->queen_id == $queenToChange->id) {
                     $beehive->queen_change = true;
+                }
+            }
+            foreach ($queensNoInseminated as $queenNoInseminated) {
+                if ($beehive->queen_id == $queenNoInseminated->id) {
+                    $beehive->queen_no_inseminated = true;
+                }
+            }
+            foreach ($queensZanganera as $queenZanganera) {
+                if ($beehive->queen_id == $queenZanganera->id) {
+                    $beehive->queen_zanganera = true;
                 }
             }
         }
@@ -34,7 +55,7 @@ class BeehiveController extends Controller
     {
         $beehive = new Beehive();
         $path = 'beehives.store';
-        $user = auth()->user()->id;
+        $user = $this->getUser();
         $freeQueens = Queen::where('user_id', $user)
             ->whereNotIn('id', function ($query) {
                 $query->select('queen_id')->from('beehives');
@@ -55,7 +76,7 @@ class BeehiveController extends Controller
         $beehive->honey_frames = $request->honey_frames;
         $beehive->pollen_frames = $request->pollen_frames;
         $beehive->brood_frames = $request->brood_frames;
-        $beehive->user_id = auth()->user()->id;
+        $beehive->user_id = $this->getUser();
         $beehive->queen_id = $request->queen_id;
         $beehive->apiary_id = $request->apiary_id;
         $beehive->save();
@@ -70,7 +91,7 @@ class BeehiveController extends Controller
      */
     public function show(string $id)
     {
-        $beehive = Beehive::findOrFail($id);
+        $beehive = $this->getBeehive($id);
         $beehive->place_name = Place::where('id', $beehive->apiary_id)->pluck('name')->first();
         $queen = Queen::where('id', $beehive->queen_id)->first();
         $products = Product::where('beehive_id', $id)->where('year', date('Y'))->get();
@@ -84,9 +105,9 @@ class BeehiveController extends Controller
      */
     public function edit(string $id)
     {
-        $beehive = Beehive::findOrFail($id);
+        $beehive = $this->getBeehive($id);
         $path = 'beehives.update';
-        $user = auth()->user()->id;
+        $user = $this->getUser();
         $actualQueen = Queen::where('id', $beehive->queen_id)->get();
 
         $freeQueens = Queen::where('user_id', $user)
@@ -111,13 +132,13 @@ class BeehiveController extends Controller
     public function update(BeehiveRequest $request, string $id)
     {
 
-        $beehive = Beehive::findOrFail($id);
+        $beehive = $this->getBeehive($id);
         $beehive->type = $request->type;
         $beehive->user_code = $request->user_code;
         $beehive->honey_frames = $request->honey_frames;
         $beehive->pollen_frames = $request->pollen_frames;
         $beehive->brood_frames = $request->brood_frames;
-        $beehive->user_id = auth()->user()->id;
+        $beehive->user_id = $this->getUser();
         $beehive->apiary_id = $request->apiary_id;
         $beehive->queen_id = $request->queen_id;
         $beehive->save();
@@ -132,7 +153,7 @@ class BeehiveController extends Controller
      */
     public function destroy(string $id)
     {
-        $beehive = Beehive::findOrFail($id);
+        $beehive = $this->getBeehive($id);
 
         $beehive->delete();
 

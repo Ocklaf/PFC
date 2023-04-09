@@ -76,7 +76,7 @@ class QueenController extends Controller
         $queen->start_date = $request->start_date;
         $queen->end_date = $request->end_date;
         $request->is_inseminated == 'on' ? $queen->is_inseminated = true : $queen->is_inseminated = false;
-        $request->is_zanganera == 'on' ? $queen->is_zanganera = true : $queen->is_zanganera = false;        
+        $request->is_zanganera == 'on' ? $queen->is_zanganera = true : $queen->is_zanganera = false;
         $request->is_new_blood == 'on' ? $queen->is_new_blood = true : $queen->is_new_blood = false;
         $queen->save();
 
