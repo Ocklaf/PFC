@@ -116,14 +116,17 @@
                                     @if ($path === 'beehives.update')
                                         <button type="submit"
                                             class="btn btn-primary btn-block  gradient-custom text-white">Editar</button>
-                                        <a href="{{ route('beehives.beehivesApiary', $beehive->apiary_id) }}"
-                                            class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
+                                        {{-- <a href="{{ route('beehives.beehivesApiary', $beehive->apiary_id) }}"
+                                            class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a> --}}
+                                            <a href="{{ url()->previous() }}" class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
                                     @else
                                         <button type="submit"
                                             class="btn btn-primary btn-block  gradient-custom text-white">Añadir</button>
 
-                                        <a href="{{ route('beehives.beehivesApiary', $apiary) }}"
-                                            class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
+                                        {{-- <a href="{{ route('beehives.beehivesApiary', $apiary) }}"
+                                            class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a> --}}
+                                            <a href="{{ url()->previous() }}" class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
+
                                     @endif
                                 </div>
                             @endif
