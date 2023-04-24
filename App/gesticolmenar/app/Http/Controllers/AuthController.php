@@ -26,6 +26,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+    try {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:100',
             'password' => 'required|string|min:6',
@@ -43,7 +44,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (!Auth::attempt($credentials)) {
-            return back()->withErrors(['error' => 'Email o contraseña incorrectos']);
+            return back()->withSuccess('Email o contraseña incorrectos');
         }
 
         $user = Auth::user();
@@ -53,6 +54,9 @@ class AuthController extends Controller
         return redirect('apiaries')
             ->withSuccess('Hola ' . $user->name . '!!')
             ->withInput(['user' => $user, 'access_token' => $token]);
+    } catch (\Exception $e) {
+        return back()->withSuccess('Error al conectar a la Base de Datos');
+    }
     }
 
     public function logout(Request $request)
