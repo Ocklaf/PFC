@@ -23,6 +23,19 @@ class BeehiveController extends Controller
         return auth()->user()->id;
     }
 
+    public function save($beehive, $request)
+    {
+        $beehive->type = $request->type;
+        $beehive->user_code = $request->user_code;
+        $beehive->honey_frames = $request->honey_frames;
+        $beehive->pollen_frames = $request->pollen_frames;
+        $beehive->brood_frames = $request->brood_frames;
+        $beehive->user_id = $this->getUser();
+        $beehive->apiary_id = $request->apiary_id;
+        $beehive->queen_id = $request->queen_id;
+        $beehive->save();
+    }
+
     public function beehivesApiary($apiary)
     {
         $beehives = Beehive::where('apiary_id', $apiary)->paginate(8);
@@ -65,21 +78,14 @@ class BeehiveController extends Controller
         return view('beehives.form', compact('beehive', 'path', 'freeQueens', 'apiary', 'apiaries'));
     }
 
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(BeehiveRequest $request)
     {
         $beehive = new Beehive();
-        $beehive->type = $request->type;
-        $beehive->user_code = $request->user_code;
-        $beehive->honey_frames = $request->honey_frames;
-        $beehive->pollen_frames = $request->pollen_frames;
-        $beehive->brood_frames = $request->brood_frames;
-        $beehive->user_id = $this->getUser();
-        $beehive->queen_id = $request->queen_id;
-        $beehive->apiary_id = $request->apiary_id;
-        $beehive->save();
+        $this->save($beehive, $request);
 
         return redirect()
             ->route('beehives.beehivesApiary', $beehive->apiary_id)
@@ -133,15 +139,7 @@ class BeehiveController extends Controller
     {
 
         $beehive = $this->getBeehive($id);
-        $beehive->type = $request->type;
-        $beehive->user_code = $request->user_code;
-        $beehive->honey_frames = $request->honey_frames;
-        $beehive->pollen_frames = $request->pollen_frames;
-        $beehive->brood_frames = $request->brood_frames;
-        $beehive->user_id = $this->getUser();
-        $beehive->apiary_id = $request->apiary_id;
-        $beehive->queen_id = $request->queen_id;
-        $beehive->save();
+        $this->save($beehive, $request);
 
         return redirect()
             ->route('beehives.beehivesApiary', $beehive->apiary_id)

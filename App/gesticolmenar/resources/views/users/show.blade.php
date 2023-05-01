@@ -72,8 +72,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estás seguro de que quieres eliminar este usuario?</p>
-                    <p>Esta acción es irreversible y eliminará todos los datos</p>
+                    <p>¿Estás seguro de que quieres eliminar tu perfil?</p>
+                    <p>Esta acción es irreversible y se eliminarán todos los datos</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>

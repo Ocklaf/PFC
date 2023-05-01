@@ -25,10 +25,11 @@ class ChartController extends Controller
     private function getChart($label, $legendName, $data)
     {
         $chart = new AppChart();
-        $chart->labels($label);
-        $chart->dataset($legendName, 'bar', $data)
-            ->color(self::BG_CHART_LINE)
-            ->backgroundcolor(self::BG_CHART_COLUMN);
+        $chart->labels($label)
+            ->options(['legend' => false])
+            ->dataset($legendName, 'bar', $data)
+                ->color(self::BG_CHART_LINE)
+                ->backgroundcolor(self::BG_CHART_COLUMN);
 
         return $chart;
     }
