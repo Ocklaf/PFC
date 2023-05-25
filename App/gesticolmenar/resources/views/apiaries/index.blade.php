@@ -43,94 +43,72 @@
                                 <tr>
                                     <td>{{ $apiary->place_name }}</td>
                                     <td>{{ $apiary->beehives_quantity }}</td>
-                                    <td class="d-flex justify-content-evenly">
-                                        <a href="{{ route('beehives.beehivesApiary', $apiary->id) }}"
-                                            class="btn btn-primary"><i class="bi bi-eye"></i></a>
-                                        <a href="{{ route('apiaries.edit', $apiary->id) }}" class="btn btn-primary"><i
-                                                class="bi bi-pencil"></i></a>
-
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></button>
-
+                                    <td class="text-center col-6">
+                                        <div class="btn-toolbar  d-flex justify-content-evenly" role="toolbar" aria-label="Acciones">
+                                            <div class="btn-group mr-2" role="group" aria-label="Ver">
+                                                <a href="{{ route('beehives.beehivesApiary', $apiary->id) }}" class="btn btn-primary"><i class="bi bi-eye"></i></a>
+                                            </div>
+                                            <div class="btn-group mr-2" role="group" aria-label="Editar">
+                                                <a href="{{ route('apiaries.edit', $apiary->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                                            </div>
+                                            <div class="btn-group" role="group" aria-label="Eliminar">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-
-                    <div class="row text-center mt-5 d-flex justify-content-start">
-                        <div class="col-lg-4 col">
+                    <div class="row text-center mt-5 ">
+                        <h3>Gráficas por colmenares</h3>
+                        <div class="col d-flex justify-content-center">
                             <form action="{{ route('charts.honeyApiaries') }}" method="POST">
                                 @csrf
                                 @method('GET')
-                                <div class="row">
-                                    <div class="col">
-                                        <select class="form-select" name="year" id="year">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-auto">
+                                        <select class="form-select me-4 mt-3 text-center" style="width: 160px" name="year"
+                                            id="year">
                                             @foreach ($years as $year)
                                                 <option value="{{ $year }}">{{ $year }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col text-start">
-                                        <button type="submit" class="btn btn-primary">Gráfica Miel</button>
+                                    <div class="col-12 col-sm-auto me-4">
+                                        <button type="submit" class="btn btn-primary mt-3 btn-block"
+                                            style="width: 160px">Gráfica Miel</button>
                                     </div>
-                                    <div class="col text-start">
-                                        <a class="btn btn-primary"
-                                            href="{{ route('charts.totalHoney', json_encode($years)) }}">Totales Miel</a>
+                                    <div class="col-12 col-sm-auto me-4">
+                                        <button type="submit" class="btn btn-primary mt-3 btn-block" style="width: 160px"
+                                            formaction="{{ route('charts.pollenApiaries') }}">Gráfica Polen</button>
+                                    </div>
+                                    <div class="col-12 col-sm-auto me-4">
+                                        <button type="submit" class="btn btn-primary mt-3 btn-block" style="width: 160px"
+                                            formaction="{{ route('charts.apitoxineApiaries') }}">Gráfica Apitoxina</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
+                    <div class="row text-center mt-5">
+                        <h3>Gráficas de los históricos</h3>
+                        <div class="col d-flex justify-content-center">
+                            <div class="row d-flex justify-content-center">
 
-                    <div class="row text-center mt-5 d-flex justify-content-start">
-                        <div class="col-lg-4 col">
-                            <form action="{{ route('charts.pollenApiaries') }}" method="POST">
-                                @csrf
-                                @method('GET')
-                                <div class="row">
-                                    <div class="col">
-                                        <select class="form-select" name="year" id="year">
-                                            @foreach ($years as $year)
-                                                <option value="{{ $year }}">{{ $year }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col text-start">
-                                        <button type="submit" class="btn btn-primary">Gráfica Polen</button>
-                                    </div>
-                                    <div class="col text-start">
-                                        <a class="btn btn-primary"
-                                            href="{{ route('charts.totalPollen', json_encode($years)) }}">Totales Polen</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="row text-center mt-5 d-flex justify-content-start mb-5">
-                        <div class="col-lg-4 col">
-                            <form action="{{ route('charts.apitoxineApiaries') }}" method="POST">
-                                @csrf
-                                @method('GET')
-                                <div class="row">
-                                    <div class="col">
-                                        <select class="form-select" name="year" id="year">
-                                            @foreach ($years as $year)
-                                                <option value="{{ $year }}">{{ $year }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col text-start">
-                                        <button type="submit" class="btn btn-primary">Gráfica Apitoxina</button>
-                                    </div>
-                                    <div class="col text-start">
-                                        <a class="btn btn-primary"
-                                            href="{{ route('charts.totalApitoxine', json_encode($years)) }}">Totales
-                                            Apitoxina</a>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="col-10 col-md-4 col-lg-3 me-4">
+                                <a class="btn btn-primary btn-block mt-3" style="width: 160px"
+                                    href="{{ route('charts.totalHoney', json_encode($years)) }}">Totales Miel</a>
+                            </div>
+                            <div class="col-10 col-md-4 col-lg-3 me-4">
+                                <a class="btn btn-primary btn-block mt-3" style="width: 160px"
+                                    href="{{ route('charts.totalPollen', json_encode($years)) }}">Totales Polen</a>
+                            </div>
+                            <div class="col-10 col-md-4 col-lg-3 me-4">
+                                <a class="btn btn-primary btn-block mt-3" style="width: 160px"
+                                    href="{{ route('charts.totalApitoxine', json_encode($years)) }}">Totales Apitoxina</a>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 @else

@@ -8,20 +8,17 @@ use App\Http\Requests\DiseaseRequest;
 
 class DiseaseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    
+    public function save($disease, $request)
     {
-        //
-    }
+        $disease->user_id = auth()->user()->id;
+        $disease->beehive_id = $request->beehive_id;
+        $disease->name = $request->name;
+        $disease->treatment_start_date = $request->treatment_start_date;
+        $disease->treatment_repeat_date = date("Y-m-d", strtotime($request->treatment_start_date . "+ " . $request->treatment_repeat_date . " days"));
+        $disease->save();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        dd('create');
+        return redirect()->route('beehives.show', $request->beehive_id);
     }
 
     public function addDiseaseToBeehive(string $beehive)
@@ -49,22 +46,9 @@ class DiseaseController extends Controller
     {
 
         $disease = new Disease();
-        $disease->user_id = auth()->user()->id;
-        $disease->beehive_id = $request->beehive_id;
-        $disease->name = $request->name;
-        $disease->treatment_start_date = $request->treatment_start_date;
-        $disease->treatment_repeat_date = date("Y-m-d", strtotime($request->treatment_start_date . "+ " . $request->treatment_repeat_date . " days"));
-        $disease->save();
+        $this->save($disease, $request);
 
         return redirect()->route('beehives.show', $request->beehive_id);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -96,12 +80,7 @@ class DiseaseController extends Controller
     {
         
         $disease = Disease::findOrFail($id);
-        $disease->user_id = auth()->user()->id;
-        $disease->beehive_id = $request->beehive_id;
-        $disease->name = $request->name;
-        $disease->treatment_start_date = $request->treatment_start_date;
-        $disease->treatment_repeat_date = date("Y-m-d", strtotime($request->treatment_start_date . "+ " . $request->treatment_repeat_date . " days"));
-        $disease->save();
+        $this->save($disease, $request);
 
         return redirect()->route('beehives.show', $request->beehive_id);
     }
@@ -113,7 +92,6 @@ class DiseaseController extends Controller
     {
         
         $disease = Disease::findOrFail($id);
-
         $disease->delete();
 
         return redirect()->route('beehives.show', $disease->beehive_id);

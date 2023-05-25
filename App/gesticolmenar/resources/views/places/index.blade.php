@@ -24,36 +24,45 @@
 
                 @if ($places->count() > 0)
 
-                    <table class="table text-center">
-                        <thead>
-                            <tr>
-                                <th>Nombre del Lugar</th>
-                                <th>Referencia catastral</th>
-                                <th></th>
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Lugar</th>
+                            <th>Referencia catastral</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($places as $place)
+                            @if (!$place->apiary()->count())
+                                <tr class="table-success">
+                                    <td class="align-middle">{{ $place->name }}</td>
+                            @else
+                                <tr>
+                                    <td class="align-middle">{{ $place->name }}</td>
+                            @endif
+                            <td class="align-middle">
+                                {{
+                                    substr($place->catastral_code, 0, strlen($place->catastral_code) / 2)
+                                    . " " .
+                                    substr($place->catastral_code, strlen($place->catastral_code) / 2)
+                                }}
+                            </td>
+                            <td >
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-5">
+                                <a href="{{ route('places.show', $place->id) }}" class="btn btn-primary me-3 inline-block"><i class="bi bi-eye"></i></a>
+                            </div>
+                            <div class="col-5">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></button>
+                            </div>
+                            </div>
+                            </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($places as $place)
-
-                                @if (!$place->apiary()->count())
-                                    <tr class="table-success">
-                                        <td>{{ $place->name }}</td>
-                                    @else
-                                    <tr>
-                                        <td>{{ $place->name }}</td>
-                                @endif
-                                
-                                <td>{{ $place->catastral_code }}</td>
-                                <td class="d-flex justify-content-evenly">
-                                    <a href="{{ route('places.show', $place->id) }}" class="btn btn-primary"><i
-                                            class="bi bi-eye"></i></a>
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></button>
-                                </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                        @endforeach
+                    </tbody>
+                </table>
+                
 
                 @else
                     <div class="alert alert-info text-center mt-5">

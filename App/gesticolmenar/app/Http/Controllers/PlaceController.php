@@ -8,6 +8,19 @@ use App\Http\Requests\PlaceRequest;
 
 class PlaceController extends Controller
 {
+
+    public function save($place, $request)
+    {
+        $place->user_id = auth()->user()->id;
+        $place->name = $request->name;
+        $place->catastral_code = $request->catastral_code;
+        $place->poligon = $request->poligon;
+        $place->parcel = $request->parcel;
+        $place->postal_code = $request->postal_code;
+        $request->has_water == 'on' ? $place->has_water = true : $place->has_water = false;
+        $place->save();
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -35,20 +48,9 @@ class PlaceController extends Controller
     public function store(PlaceRequest $request)
     {
         $place = new Place();
-        $place->user_id = auth()->user()->id;
-        $place->name = $request->name;
-        $place->catastral_code = $request->catastral_code;
-        $place->poligon = $request->poligon;
-        $place->parcel = $request->parcel;
-        $place->postal_code = $request->postal_code;
-        if ($request->has_water == 'on') {
-            $place->has_water = true;
-        } else {
-            $place->has_water = false;
-        }
-        $place->save();
+        $this->save($place, $request);
 
-        return redirect()->route('apiaries.index')->withSuccess('Ubicación registrada correctamente');
+        return redirect()->route('places.index')->withSuccess('Ubicación registrada correctamente');
     }
 
     /**
@@ -78,17 +80,7 @@ class PlaceController extends Controller
     public function update(PlaceRequest $request, string $id)
     {
         $place = Place::findOrFail($id);
-        $place->name = $request->name;
-        $place->catastral_code = $request->catastral_code;
-        $place->poligon = $request->poligon;
-        $place->parcel = $request->parcel;
-        $place->postal_code = $request->postal_code;
-        if ($request->has_water == 'on') {
-            $place->has_water = true;
-        } else {
-            $place->has_water = false;
-        }
-        $place->save();
+        $this->save($place, $request);
 
         return redirect()->route('places.index')->withSuccess('Ubicación actualizada correctamente');
     }
@@ -99,7 +91,6 @@ class PlaceController extends Controller
     public function destroy(string $id)
     {
         $place = Place::findOrFail($id);
-
         $place->delete();
 
         return redirect()->route('places.index')->withSuccess('Ubicación eliminada correctamente');

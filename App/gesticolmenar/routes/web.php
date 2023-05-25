@@ -52,5 +52,4 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('queens', QueenController::class);
     Route::resource('products', ProductController::class);
     Route::resource('diseases', DiseaseController::class);
-    // Route::resource('charts', HoneyApiaryChartController::class);
 });

@@ -8,20 +8,15 @@ use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function save($product, $request)
     {
-        //
+        $product->user_id = auth()->user()->id;
+        $product->beehive_id = $request->beehive_id;
+        $product->type = $request->type;
+        $product->grams = $request->grams;
+        $product->year = date('Y');
+        $product->save();
     }
 
     /**
@@ -30,30 +25,9 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $product = new Product();
-        $product->user_id = auth()->user()->id;
-        $product->beehive_id = $request->beehive_id;
-        $product->type = $request->type;
-        $product->grams = $request->grams;
-        $product->year = date('Y');
-        $product->save();
+        $this->save($product, $request);
 
         return redirect()->back()->withSuccess('Producto añadido correctamente');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
@@ -62,13 +36,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, string $id)
     {
         $product = Product::findOrFail($id);
-
-        $product->user_id = auth()->user()->id;
-        $product->beehive_id = $request->beehive_id;
-        $product->type = $request->type;
-        $product->grams = $request->grams;
-        $product->year = date('Y');
-        $product->save();
+        $this->save($product, $request);
 
         return redirect()->back()->withSuccess('Producto actualizado correctamente');
     }
@@ -79,7 +47,6 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);
-
         $product->delete();
 
         return redirect()->back()->withSuccess('Producto eliminado correctamente');
