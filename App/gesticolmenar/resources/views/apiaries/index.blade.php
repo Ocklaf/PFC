@@ -52,7 +52,7 @@
                                                 <a href="{{ route('apiaries.edit', $apiary->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
                                             </div>
                                             <div class="btn-group" role="group" aria-label="Eliminar">
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3"></i></button>
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{$apiary->id}}"><i class="bi bi-trash3"></i></button>
                                             </div>
                                         </div>
                                     </td>
@@ -121,9 +121,10 @@
         </div>
 
 
-        <!-- Modal -->
+        <!-- Modals -->
         @if ($apiaries->count() > 0)
-            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        @foreach ($apiaries as $apiary)
+            <div class="modal fade" id="deleteModal{{$apiary->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -146,5 +147,6 @@
                     </div>
                 </div>
             </div>
+        @endforeach
         @endif
     @endsection

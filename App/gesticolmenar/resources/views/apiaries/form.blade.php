@@ -6,15 +6,9 @@
         @if (!count($freePlaces) && $path === 'apiaries.store')
             <div class="row d-flex justify-content-center mt-4">
                 <div class="col-lg-6 col-md-8">
-                    {{-- @if ($path === 'apiaries.store') --}}
                     <div class="alert alert-danger text-center">
                         No existen Ubicaciones disponibles, debes añadir una antes de añadir un colmenar.
                     </div>
-                    {{-- @else
-                        <div class="alert alert-danger text-center">
-                            No existen Ubicaciones disponibles, debes añadir una antes de añadir un colmenar.
-                        </div> --}}
-                    {{-- @endif --}}
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
@@ -51,8 +45,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-
+                                
                                 <div class="form-outline mt-2 mb-1">
                                     <label class="form-label" for="last_visit">Fecha visita al colmenar</label>
                                     @if ($apiary->last_visit === null)

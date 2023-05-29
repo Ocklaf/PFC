@@ -73,5 +73,4 @@
             </div>
         @endif
     </div>
-    {{-- <a href="{{ route('beehives.show', $beehiveWithDisease->id)}}">{{$beehiveWithDisease->user_code}}</a> --}}
 @endsection

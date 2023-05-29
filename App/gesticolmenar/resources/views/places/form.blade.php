@@ -84,8 +84,6 @@
                                     <button type="submit"
                                         class="btn btn-primary btn-block  gradient-custom text-white">Añadir</button>
                                 @endif
-
-                                {{-- <a href="{{ route('places.index') }}" --}}
                                 <a href="{{ url()->previous() }}"
 
                                     class="btn btn-danger btn-block  gradient-custom text-white">Cancelar</a>
